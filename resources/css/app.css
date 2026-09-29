@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kufam:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+/* ---- Local fonts (copied from the previous React project) ---- */
+
+@font-face {
+  font-family: 'Geomanist';
+  src: url('../fonts/Geomanist/Geomanist-Regular&Italic/Desktop/Geomanist-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geomanist';
+  src: url('../fonts/Geomanist/Geomanist-Regular&Italic/Desktop/Geomanist-Regular-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis/Metropolis-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis/Metropolis-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis/Metropolis-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis/Metropolis-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis/Metropolis-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('../fonts/TT-Norms-Font/TT-Norms-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('../fonts/TT-Norms-Font/TT-Norms-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('../fonts/TT-Norms-Font/TT-Norms-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('../fonts/TT-Norms-Font/TT-Norms-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@theme {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-kufam: 'Kufam', cursive;
+  --font-red-hat: 'Red Hat Display', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-geomanist: 'Geomanist', sans-serif;
+  --font-metropolis: 'Metropolis', sans-serif;
+  --font-tt-norms: 'TT Norms', sans-serif;
+  --color-primary-blue: #0041ce;
+  --color-secondary-white: #e4e4e4;
+  --color-neutral-semiblue: #edf0f8;
+  --color-brand-navy: #0a3c86;
+  --color-brand-teal: #063852;
+  --color-brand-sky: #0b4cf0;
+  --color-brand-accent: #0093dd;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+  }
+}
+
+@utility prose-body {
+  & p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  & ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  & ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  & li {
+    margin-bottom: 0.25rem;
+  }
+
+  & a {
+    color: var(--color-brand-sky);
+    text-decoration: underline;
+  }
+
+  & h2,
+  & h3,
+  & h4 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  & img {
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Accessible focus ring for keyboard users only */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand-sky);
+    outline-offset: 2px;
+  }
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+/* ---- Scroll reveal animations (AOS-like, dependency-free) ---- */
+
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 800ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+html.reveal-ready [data-reveal='up'] {
+  transform: translate3d(0, 2.5rem, 0);
+}
+
+html.reveal-ready [data-reveal='down'] {
+  transform: translate3d(0, -2.5rem, 0);
+}
+
+html.reveal-ready [data-reveal='left'] {
+  transform: translate3d(-2.5rem, 0, 0);
+}
+
+html.reveal-ready [data-reveal='right'] {
+  transform: translate3d(2.5rem, 0, 0);
+}
+
+html.reveal-ready [data-reveal='zoom'] {
+  transform: scale(0.92);
+}
+
+html.reveal-ready [data-reveal='zoom-left'] {
+  transform: translate3d(-2rem, 0, 0) scale(0.95);
+}
+
+html.reveal-ready [data-reveal='zoom-right'] {
+  transform: translate3d(2rem, 0, 0) scale(0.95);
+}
+
+html.reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal-delay='100'] {
+  transition-delay: 100ms;
+}
+
+[data-reveal-delay='200'] {
+  transition-delay: 200ms;
+}
+
+[data-reveal-delay='300'] {
+  transition-delay: 300ms;
+}
+
+[data-reveal-delay='400'] {
+  transition-delay: 400ms;
+}
+
+[data-reveal-delay='500'] {
+  transition-delay: 500ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

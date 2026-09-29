@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title": "Bagian Depan Sekolah",
+        "images": "/images/sarana1.jpeg",
+        "description": "Bagian depan sekolah biasanya jadi tempat pertama yang disambut pas kita datang. Di sini biasanya ada gerbang, papan nama sekolah, dan juga taman kecil yang bikin suasana terlihat rapi dan nyaman."
+    },
+    {
+        "id": 2,
+        "title": "Perpustakaan",
+        "images": "/images/sarana2.jpeg",
+        "description": "Tempat bagi siswa yang ingin membaca buku dan mengerjakan tugas dengan tenang. Suasananya biasanya adem dan cocok banget buat cari inspirasi atau bahan belajar."
+        
+    },
+    {
+        "id": 3,
+        "title": "Taman Hijau",
+        "images": "/images/sarana3.jpeg",
+        "description": "Tempatnya adem dan segar, banyak tanaman yang bikin mata jadi rileks. Biasanya dijadiin tempat duduk santai pas jam istirahat atau buat foto bareng teman."
+        
+    },
+    {
+        "id": 4,
+        "title": "Masjid",
+        "images": "/images/sarana4.jpeg",
+        "description":"Tempat untuk beribadah, terutama bagi siswa yang ingin salat berjamaah. Selain itu, suasananya juga tenang dan sering jadi tempat menenangkan diri sejenak."
+        
+    },
+    {
+        "id": 5,
+        "title": "Pojok Baca",
+        "images": "/images/sarana5.jpeg",
+        "description": "Tempat baca santai di luar perpustakaan. Biasanya ada rak kecil berisi buku-buku ringan yang bisa dibaca sambil duduk santai. Cocok buat yang suka baca tapi nggak mau di ruangan tertutup."
+        
+    },
+
+    {
+        "id": 6,
+        "title": "Kantin",
+        "images": "/images/sarana6.jpeg",
+        "description": "Tempat favorit banyak siswa! Di sini bisa beli makanan dan minuman sambil ngobrol bareng teman. Suasananya rame tapi seru."
+        
+    },
+
+    {
+        "id": 7,
+        "title": "Parkiran",
+        "images":"/images/sarana7.jpeg",
+        "description":"Tempat untuk menyimpan kendaraan siswa, guru, dan karyawan sekolah. Biasanya dibagi antara area motor dan mobil, biar tertata rapi dan aman."
+        
+    },
+
+    {
+        "id": 8,
+        "title": "UKS",
+        "images":"/images/sarana8.jpeg",
+        "description":"Tempat buat istirahat kalau lagi kurang enak badan di sekolah. Ada obat-obatan ringan dan petugas yang siap bantu kalau ada siswa yang sakit."
+        
+
+    },
+
+    {
+        "id": 9,
+        "title": "Ruang Wijaya Kusuma",
+        "images":"/images/sarana9.jpeg",
+        "description":"Biasanya jadi ruang serbaguna — bisa dipakai buat rapat, acara sekolah, atau kegiatan penting lainnya. Tempatnya cukup luas dan sering jadi pusat kegiatan."
+        
+    }
+    
+
+
+]
