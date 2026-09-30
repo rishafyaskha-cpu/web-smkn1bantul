@@ -2,15 +2,15 @@
 
 @if (count($breadcrumbs) > 0)
     <nav aria-label="Remah roti" class="w-full">
-        <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-500">
+        <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
             <li>
-                <a href="{{ route('home') }}" class="hover:text-brand-navy">Beranda</a>
+                <a href="{{ route('home') }}" class="transition-colors hover:text-brand-navy">Beranda</a>
             </li>
-            @foreach ($breadcrumbs as $index => $crumb)
-                <li aria-hidden="true" class="text-gray-300">/</li>
-                <li @class(['text-gray-700 font-medium' => $crumb['url'] ?? null, 'text-gray-500' => ! ($crumb['url'] ?? null)])>
+            @foreach ($breadcrumbs as $crumb)
+                <li aria-hidden="true" class="text-slate-300">/</li>
+                <li @class(['font-medium text-slate-700' => $crumb['url'] ?? null, 'text-slate-500' => ! ($crumb['url'] ?? null)])>
                     @if ($crumb['url'] ?? null)
-                        <a href="{{ $crumb['url'] }}" class="hover:text-brand-navy">{{ $crumb['label'] }}</a>
+                        <a href="{{ $crumb['url'] }}" class="transition-colors hover:text-brand-navy">{{ $crumb['label'] }}</a>
                     @else
                         {{ $crumb['label'] }}
                     @endif

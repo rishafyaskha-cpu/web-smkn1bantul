@@ -6,37 +6,46 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-gray-50">
-        <x-page-title text="Program Keahlian" />
+    <x-page-title text="Program Keahlian"
+                  :description="'Pilih jurusan yang sesuai dengan minat dan bakatmu di '.\App\Support\Site::name().'.'" />
 
-        <main class="py-10 lg:py-16 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
-            <x-breadcrumbs :breadcrumbs="[['label' => 'Program Keahlian']]" class="mb-8" />
+    <div class="container-page py-10 lg:py-14">
+        <x-breadcrumbs :breadcrumbs="[['label' => 'Program Keahlian']]" />
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse ($programs as $program)
-                    <a href="{{ route('program-keahlian.show', $program) }}"
-                       data-reveal="up" data-reveal-delay="{{ ($loop->index % 3) * 100 }}"
-                       class="group flex flex-col bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-                        @if ($program->image_url)
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @forelse ($programs as $program)
+                <a href="{{ route('program-keahlian.show', $program) }}"
+                   data-reveal="up" data-reveal-delay="{{ ($loop->index % 3) * 100 }}"
+                   class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-slate-900/5 transition-shadow duration-300 hover:shadow-card-hover">
+                    @if ($program->image_url)
+                        <div class="aspect-[16/10] overflow-hidden bg-slate-100">
                             <img src="{{ $program->image_url }}" alt="{{ $program->title }}" loading="lazy"
-                                 class="w-full h-48 object-cover">
-                        @endif
-                        <div class="p-6">
-                            @if ($program->category)
-                                <span class="inline-block bg-blue-50 text-brand-sky text-[11px] font-semibold px-3 py-1 rounded mb-3">
-                                    {{ $program->category }}
-                                </span>
-                            @endif
-                            <h2 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-navy">{{ $program->title }}</h2>
-                            @if ($program->summary)
-                                <p class="text-sm text-gray-600 line-clamp-3">{{ $program->summary }}</p>
-                            @endif
+                                 class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
                         </div>
-                    </a>
-                @empty
-                    <p class="text-gray-500">Belum ada program keahlian.</p>
-                @endforelse
-            </div>
-        </main>
+                    @endif
+
+                    <div class="flex flex-1 flex-col p-6">
+                        @if ($program->category)
+                            <span class="badge badge-info mb-3 self-start">{{ $program->category }}</span>
+                        @endif
+
+                        <h2 class="font-display text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-navy">
+                            {{ $program->title }}
+                        </h2>
+
+                        @if ($program->summary)
+                            <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600">{{ $program->summary }}</p>
+                        @endif
+
+                        <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-sky">
+                            Lihat detail
+                            <span class="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+                        </span>
+                    </div>
+                </a>
+            @empty
+                <p class="col-span-full py-20 text-center text-slate-500">Belum ada program keahlian.</p>
+            @endforelse
+        </div>
     </div>
 @endsection

@@ -12,68 +12,112 @@
 @endphp
 
 @section('content')
-    <div class="box-border relative flex flex-col gap-16 lg:gap-0 lg:flex-row items-center lg:justify-between px-4 sm:px-10 lg:px-14 lg:py-18">
-        <svg width="200" height="40" class="absolute top-1/20 hidden xl:stroke-3 lg:stroke-2 lg:block" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <line x1="10" y1="20" x2="120" y2="20" stroke="black" stroke-linecap="round" />
-            <line x1="140" y1="20" x2="180" y2="20" stroke="black" stroke-linecap="round" />
-        </svg>
+    {{-- Hero --}}
+    <section class="relative overflow-hidden bg-surface">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_60%_at_15%_0%,rgba(11,76,240,0.10),transparent_60%),radial-gradient(50%_50%_at_100%_20%,rgba(0,147,221,0.10),transparent_60%)]" aria-hidden="true"></div>
 
-        <div class="w-full lg:w-1/2 font-poppins flex flex-col items-center lg:items-start content-center gap-4 md:gap-8">
-            <div class="w-full flex flex-col gap-3 text-3xl sm:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl" data-reveal="right">
-                <h2 class="font-medium text-center lg:text-start">Selamat Datang di</h2>
-                <h2 class="lg:w-fit mx-auto lg:mx-0 text-center text-white font-semibold py-2 px-1 md:py-4 md:px-2 rounded-lg bg-brand-sky">{{ Site::name() }}</h2>
-            </div>
-            <p class="text-sm sm:text-xl lg:text-xl text-center lg:text-start text-neutral-500" data-reveal="right" data-reveal-delay="100">
-                {{ \App\Support\Site::get('school.tagline', 'Membangun wajah sekolah yang dulu kusam jadi terang dan transparan dengan teknologi dan estetika.') }}
-            </p>
-            <div data-reveal="right" data-reveal-delay="200">
-                <x-button :href="Site::mapsUrl()" target="_blank">Kunjungi</x-button>
-            </div>
-        </div>
+        <div class="container-page relative">
+            <div class="grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
+                <div class="max-w-xl" data-reveal="right">
+                    <p class="eyebrow">Sekolah Menengah Kejuruan Negeri</p>
 
-        <div class="grid grid-cols-2 gap-3 auto-rows-[18vh] sm:auto-rows-[24vh] md:auto-rows-[30vh] lg:auto-rows-[14vh]">
-            @foreach ([0, 1, 2] as $i)
-                @php $image = $heroSlots[$i] ?? null; @endphp
-                <div @class([
-                    'overflow-hidden rounded-2xl row-span-1',
-                    'row-span-2 lg:row-span-3 xl:row-start-2' => $i === 0,
-                    'lg:row-span-2 xl:row-span-3' => $i === 1,
-                    'xl:row-span-2' => $i === 2,
-                ]) data-reveal="zoom" data-reveal-delay="{{ $i * 150 }}">
-                    <img src="{{ $image?->image_url ?: Site::heroImage() }}" alt="{{ $image?->alt ?: 'Kegiatan sekolah' }}"
-                         class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="{{ $i === 0 ? 'eager' : 'lazy' }}" width="600" height="400">
+                    <h1 class="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem]">
+                        Selamat Datang di
+                        <span class="mt-2 block text-brand-sky">{{ Site::name() }}</span>
+                    </h1>
+
+                    <p class="mt-6 text-base leading-relaxed text-slate-600 sm:text-lg">
+                        {{ \App\Support\Site::get('school.tagline', 'Membangun wajah sekolah yang dulu kusam jadi terang dan transparan dengan teknologi dan estetika.') }}
+                    </p>
+
+                    <div class="mt-8 flex flex-wrap items-center gap-3" data-reveal="up" data-reveal-delay="150">
+                        <x-button :href="route('ppdb')" variant="primary" size="lg">
+                            Informasi PPDB
+                            <span aria-hidden="true">&rarr;</span>
+                        </x-button>
+                        <x-button :href="Site::mapsUrl()" target="_blank" variant="outline" size="lg">
+                            Kunjungi Sekolah
+                        </x-button>
+                    </div>
+
+                    <dl class="mt-10 grid max-w-sm grid-cols-2 gap-6 border-t border-slate-200 pt-6">
+                        <div>
+                            <dt class="text-xs font-medium text-slate-500">Berdiri Sejak</dt>
+                            <dd class="mt-1 font-display text-xl font-bold text-slate-900">1968</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium text-slate-500">Program Keahlian</dt>
+                            <dd class="mt-1 font-display text-xl font-bold text-slate-900">{{ $programs->count() }}</dd>
+                        </div>
+                    </dl>
                 </div>
-            @endforeach
-        </div>
-    </div>
 
-    <div class="relative mx-auto px-4 lg:px-20 py-44 mt-55 lg:mt-14 bg-neutral-semiblue z-10">
-        <x-statistics :items="$statistics" class="absolute right-1/2 -top-14 transform translate-x-1/2" data-reveal="zoom" />
+                <div class="grid grid-cols-2 gap-3 sm:gap-4" data-reveal="zoom">
+                    @php
+                        $slots = [
+                            ['class' => 'col-span-2 aspect-[16/10]', 'delay' => 0],
+                            ['class' => 'aspect-square', 'delay' => 100],
+                            ['class' => 'aspect-square', 'delay' => 200],
+                        ];
+                    @endphp
 
-        <div class="max-w-3xl flex flex-col gap-8 text-center mx-auto mb-44">
-            <h2 class="font-metropolis text-3xl md:text-4xl font-bold text-gray-900 mb-3" data-reveal="up">
-                {{ \App\Support\Site::get('home.mission_heading', 'Menumbuhkan Harapan, Menempa Masa Depan') }}
-            </h2>
-            <p class="text-gray-600 font-tt-norms text-md md:text-lg leading-relaxed" data-reveal="up" data-reveal-delay="150">
-                {{ \App\Support\Site::get('home.mission_text', 'Di sekolah ini, setiap siswa adalah harapan, setiap guru adalah cahaya, setiap jurusan adalah jalan masa depan, dan setiap ruang belajar adalah jembatan menuju dunia nyata.') }}
-            </p>
+                    @foreach ($slots as $i => $slot)
+                        @php $image = $heroSlots[$i] ?? null; @endphp
+                        <div @class(['group overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-900/5', $slot['class']])
+                             data-reveal="zoom" data-reveal-delay="{{ $slot['delay'] }}">
+                            <img src="{{ $image?->image_url ?: Site::heroImage() }}"
+                                 alt="{{ $image?->alt ?: 'Kegiatan '.Site::name() }}"
+                                 class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                                 loading="{{ $i === 0 ? 'eager' : 'lazy' }}" width="800" height="500">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-        <div class="h-[3px] bg-black rounded-b-3xl"></div>
-    </div>
+    </section>
 
-    <div class="flex flex-col md:flex-row justify-between px-8 md:px-20 bg-neutral-semiblue pb-44">
-        <h2 class="font-metropolis font-semibold text-3xl text-center md:text-right lg:text-6xl mb-20 w-full md:w-[35%] text-brand-navy" data-reveal="right">
-            {{ \App\Support\Site::get('home.history_heading', 'Perjalanan Panjang SMK Negeri 1 Bantul dalam Membangun') }}
-            <br />
-            <span class="text-white bg-brand-navy rounded-xl px-3">Masa Depan</span>
-        </h2>
-        <div class="w-full md:w-[43%] text-lg md:text-[20px] mr-5 font-tt-norms" data-reveal="left" data-reveal-delay="150">
-            <p class="leading-relaxed font-normal">
-                {{ \App\Support\Site::get('home.history_excerpt', 'SMK Negeri 1 Bantul memiliki perjalanan sejarah panjang yang penuh dengan komitmen terhadap pendidikan berkualitas.') }}
-            </p>
-            <a href="{{ route('sejarah') }}" class="underline text-[16px] hover:text-brand-sky transition-colors">Baca selengkapnya</a>
+    {{-- Statistics --}}
+    <x-statistics :items="$statistics" />
+
+    {{-- Mission --}}
+    <section class="section">
+        <div class="container-page">
+            <div class="mx-auto max-w-3xl text-center" data-reveal="up">
+                <p class="eyebrow">Arah Pendidikan</p>
+                <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                    {{ \App\Support\Site::get('home.mission_heading', 'Menumbuhkan Harapan, Menempa Masa Depan') }}
+                </h2>
+                <p class="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">
+                    {{ \App\Support\Site::get('home.mission_text', 'Di sekolah ini, setiap siswa adalah harapan, setiap guru adalah cahaya, setiap jurusan adalah jalan masa depan, dan setiap ruang belajar adalah jembatan menuju dunia nyata.') }}
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
+
+    {{-- History --}}
+    <section class="border-y border-slate-200/80 bg-surface">
+        <div class="container-page section">
+            <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+                <div class="lg:col-span-5" data-reveal="right">
+                    <p class="eyebrow">Tentang Kami</p>
+                    <h2 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                        {{ \App\Support\Site::get('home.history_heading', 'Perjalanan Panjang SMK Negeri 1 Bantul dalam Membangun') }}
+                        <span class="mt-2 block text-brand-navy">Masa Depan</span>
+                    </h2>
+                </div>
+
+                <div class="lg:col-span-7" data-reveal="left" data-reveal-delay="150">
+                    <p class="text-base leading-relaxed text-slate-600 sm:text-lg">
+                        {{ \App\Support\Site::get('home.history_excerpt', 'SMK Negeri 1 Bantul memiliki perjalanan sejarah panjang yang penuh dengan komitmen terhadap pendidikan berkualitas.') }}
+                    </p>
+                    <a href="{{ route('sejarah') }}" class="link-inline mt-5 inline-flex items-center gap-1.5 text-sm">
+                        Baca selengkapnya
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <x-principal :name="$principal['name']" :image="$principal['photo']" />
 

@@ -25,14 +25,14 @@
             role="dialog"
             aria-modal="false"
             aria-labelledby="chatbot-title"
-            class="mb-3 flex h-[32rem] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"
+            class="mb-3 flex h-[32rem] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-panel"
         >
-            <div class="flex items-center justify-between gap-3 bg-brand-navy px-4 py-3 text-white">
-                <div class="flex items-center gap-2">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div class="flex items-center justify-between gap-3 bg-brand-teal px-4 py-3.5 text-white">
+                <div class="flex items-center gap-2.5">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 10h8M8 14h5m8-2a8 8 0 0 1-8 8H7l-4 3v-5.6A8 8 0 1 1 21 12Z" />
                     </svg>
-                    <h2 id="chatbot-title" class="text-sm font-semibold">Skansaba Bot</h2>
+                    <h2 id="chatbot-title" class="font-display text-sm font-bold">Skansaba Bot</h2>
                 </div>
 
                 <button
@@ -49,7 +49,7 @@
 
             <div
                 x-ref="chatLog"
-                class="flex-1 space-y-3 overflow-y-auto bg-gray-50 px-4 py-4"
+                class="flex-1 space-y-3 overflow-y-auto bg-surface px-4 py-4"
                 role="log"
                 aria-live="polite"
                 aria-relevant="additions text"
@@ -61,17 +61,17 @@
                         :class="message.role === 'user' ? 'justify-end' : 'justify-start'"
                     >
                         <p
-                            class="max-w-[85%] whitespace-pre-line rounded-2xl px-3 py-2 text-sm leading-relaxed"
+                            class="max-w-[85%] whitespace-pre-line rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed"
                             :class="message.role === 'user'
                                 ? 'bg-brand-sky text-white rounded-br-sm'
-                                : 'bg-white text-gray-800 shadow-sm border border-gray-200 rounded-bl-sm'"
+                                : 'bg-white text-slate-700 shadow-card ring-1 ring-slate-900/5 rounded-bl-sm'"
                             x-text="message.content"
                         ></p>
                     </div>
                 </template>
 
                 <div x-show="loading" x-cloak class="flex justify-start" aria-hidden="true">
-                    <p class="rounded-2xl rounded-bl-sm border border-gray-200 bg-white px-3 py-2 text-sm text-gray-500 shadow-sm">
+                    <p class="rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 text-sm text-slate-500 shadow-card ring-1 ring-slate-900/5">
                         Sedang mengetik…
                     </p>
                 </div>
@@ -85,7 +85,7 @@
                 class="border-t border-red-100 bg-red-50 px-4 py-2 text-xs text-red-700"
             ></p>
 
-            <form @submit.prevent="send()" class="border-t border-gray-200 bg-white px-3 py-3">
+            <form @submit.prevent="send()" class="border-t border-slate-200 bg-white px-3 py-3">
                 <label for="chatbot-input" class="sr-only">Tulis pertanyaan Anda</label>
                 <div class="flex items-end gap-2">
                     <textarea
@@ -95,14 +95,14 @@
                         rows="1"
                         maxlength="{{ config('services.chatbot.max_question_length', 500) }}"
                         placeholder="Tulis pertanyaan…"
-                        class="max-h-24 flex-1 resize-none rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:border-brand-sky focus:outline-none"
+                        class="max-h-24 flex-1 resize-none rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-slate-800 transition focus:border-brand-sky focus:outline-none focus:ring-2 focus:ring-brand-sky/20"
                         @keydown.enter.prevent="if (!$event.shiftKey) send()"
                     ></textarea>
 
                     <button
                         type="submit"
                         :disabled="loading || input.trim() === ''"
-                        class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-brand-navy text-white transition-colors enabled:hover:bg-brand-sky disabled:cursor-not-allowed disabled:opacity-50"
+                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-navy text-white transition-colors enabled:hover:bg-brand-sky disabled:cursor-not-allowed disabled:opacity-50"
                         aria-label="Kirim pertanyaan"
                     >
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -117,7 +117,7 @@
             type="button"
             x-ref="chatToggle"
             @click="toggle()"
-            class="ml-auto flex items-center gap-2 rounded-full bg-brand-navy px-4 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-brand-sky"
+            class="ml-auto flex items-center gap-2 rounded-full bg-brand-navy px-4 py-3 text-sm font-semibold text-white shadow-panel transition-colors hover:bg-brand-sky"
             :aria-expanded="open ? 'true' : 'false'"
             aria-controls="chatbot-panel"
         >

@@ -3,16 +3,19 @@
 @endphp
 
 @if ($partners->isNotEmpty())
-    <div class="w-full">
-        <div class="flex flex-col items-center mx-auto py-8">
-            <p class="text-2xl text-neutral-500" data-reveal="up">JHIC Powered by</p>
-            <div class="flex flex-wrap justify-center w-fit">
+    <section class="border-t border-slate-200/80 bg-surface py-12 lg:py-14">
+        <div class="container-page">
+            <p class="text-center text-xs font-semibold uppercase tracking-[0.18em] text-slate-500" data-reveal="up">
+                Mitra Industri &amp; Institusi
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14">
                 @foreach ($partners as $partner)
-                    <img src="{{ $partner->image_url }}" alt="{{ $partner->alt ?: 'Partner' }}" loading="lazy"
-                         data-reveal="up" data-reveal-delay="{{ $loop->index * 100 }}"
-                         class="w-[12rem] object-contain h-auto transition-all duration-300 lg:grayscale-90 hover:grayscale-0 hover:scale-105">
+                    <img src="{{ $partner->image_url }}" alt="{{ $partner->alt ?: 'Mitra '.$partner->title }}" loading="lazy"
+                         data-reveal="up" data-reveal-delay="{{ $loop->index * 75 }}"
+                         class="h-12 w-auto max-w-[9rem] object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-14">
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endif

@@ -1,22 +1,40 @@
 @props([
-    'text' => null,
     'href' => null,
     'target' => null,
-    'variant' => 'neutral',
+    'type' => 'button',
+    'variant' => 'primary',
+    'size' => 'md',
 ])
 
 @php
-    $classes = match ($variant) {
-        'dark' => 'bg-[#063852] text-white hover:bg-[#052c42] border-transparent',
-        'primary' => 'bg-brand-sky text-white hover:bg-blue-700 border-transparent',
-        default => 'bg-[#f4f4f4] border-neutral-900 text-neutral-950 hover:bg-neutral-950 hover:text-white',
-    };
+    $variants = [
+        'primary' => 'bg-brand-sky text-white shadow-sm hover:bg-brand-navy focus-visible:outline-brand-navy',
+        'dark' => 'bg-brand-teal text-white shadow-sm hover:bg-brand-navy focus-visible:outline-brand-navy',
+        'outline' => 'border border-slate-300 bg-white text-slate-800 hover:border-brand-navy hover:text-brand-navy',
+        'ghost' => 'text-slate-700 hover:bg-slate-100 hover:text-brand-navy',
+        'danger' => 'bg-red-600 text-white shadow-sm hover:bg-red-700',
+    ];
 
-    $tag = $href ? 'a' : 'span';
+    $sizes = [
+        'sm' => 'px-4 py-2 text-sm',
+        'md' => 'px-5 py-2.5 text-sm',
+        'lg' => 'px-7 py-3 text-base',
+    ];
 @endphp
 
-<{{ $tag }} @if ($href) href="{{ $href }}" @endif
-    @if ($target) target="{{ $target }}" rel="noopener noreferrer" @endif
-    {{ $attributes->merge(['class' => "inline-block w-fit h-fit font-medium border-2 py-1.5 px-8 rounded-[100px] transition-all duration-200 cursor-pointer {$classes}"]) }}>
-    {{ $slot }}
-</{{ $tag }}>
+@if ($href)
+    <a href="{{ $href }}"
+       @if ($target) target="{{ $target }}" rel="noopener noreferrer" @endif
+       {{ $attributes->merge([
+           'class' => 'inline-flex w-fit items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 '.($variants[$variant] ?? $variants['primary']).' '.($sizes[$size] ?? $sizes['md']),
+       ]) }}>
+        {{ $slot }}
+    </a>
+@else
+    <button type="{{ $type }}"
+            {{ $attributes->merge([
+                'class' => 'inline-flex w-fit items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 '.($variants[$variant] ?? $variants['primary']).' '.($sizes[$size] ?? $sizes['md']),
+            ]) }}>
+        {{ $slot }}
+    </button>
+@endif

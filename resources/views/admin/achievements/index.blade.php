@@ -5,61 +5,63 @@
 @endphp
 
 @section('content')
-    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Prestasi</h1>
-            <p class="mt-1 text-sm text-gray-500">Kelola prestasi siswa dan siswi.</p>
+            <h1 class="font-display text-2xl font-bold tracking-tight text-slate-900">Prestasi</h1>
+            <p class="mt-1 text-sm text-slate-500">Kelola prestasi siswa dan siswi.</p>
         </div>
         <x-button :href="route('admin.achievements.create')" variant="primary">Tambah Prestasi</x-button>
-    </div>
+    </header>
 
-    <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+    <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-                <thead class="bg-gray-50 text-xs uppercase tracking-wide text-gray-600">
+                <thead class="border-b border-slate-200 bg-surface text-xs uppercase tracking-wide text-slate-600">
                     <tr>
-                        <th scope="col" class="px-5 py-3 font-semibold">Prestasi</th>
-                        <th scope="col" class="px-5 py-3 font-semibold">Tingkat</th>
-                        <th scope="col" class="px-5 py-3 font-semibold">Status</th>
-                        <th scope="col" class="px-5 py-3 text-right font-semibold">Aksi</th>
+                        <th scope="col" class="px-5 py-3.5 font-semibold">Prestasi</th>
+                        <th scope="col" class="px-5 py-3.5 font-semibold">Tingkat</th>
+                        <th scope="col" class="px-5 py-3.5 font-semibold">Status</th>
+                        <th scope="col" class="px-5 py-3.5 text-right font-semibold">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-slate-100">
                     @forelse ($achievements as $achievement)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-5 py-3">
-                                <p class="font-medium text-gray-900">{{ $achievement->title }}</p>
+                        <tr class="transition-colors hover:bg-surface">
+                            <td class="px-5 py-4">
+                                <p class="font-medium text-slate-900">{{ $achievement->title }}</p>
                                 @if ($achievement->student_name || $achievement->class_name)
-                                    <p class="text-xs text-gray-500">
+                                    <p class="mt-0.5 text-xs text-slate-500">
                                         {{ $achievement->student_name }}@if ($achievement->student_name && $achievement->class_name), @endif{{ $achievement->class_name }}
                                     </p>
                                 @endif
                             </td>
-                            <td class="whitespace-nowrap px-5 py-3 text-gray-600">{{ $achievement->level ?: '—' }}</td>
-                            <td class="px-5 py-3">
-                                @if ($achievement->is_published)
-                                    <span class="inline-flex rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Terbit</span>
-                                @else
-                                    <span class="inline-flex rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">Draf</span>
-                                @endif
-                                @if ($achievement->is_featured)
-                                    <span class="ml-1 inline-flex rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">Unggulan</span>
-                                @endif
+                            <td class="whitespace-nowrap px-5 py-4 text-slate-600">{{ $achievement->level ?: '—' }}</td>
+                            <td class="px-5 py-4">
+                                <div class="flex flex-wrap items-center gap-1.5">
+                                    @if ($achievement->is_published)
+                                        <span class="badge badge-success">Terbit</span>
+                                    @else
+                                        <span class="badge badge-warning">Draf</span>
+                                    @endif
+                                    @if ($achievement->is_featured)
+                                        <span class="badge badge-info">Unggulan</span>
+                                    @endif
+                                </div>
                             </td>
-                            <td class="whitespace-nowrap px-5 py-3 text-right">
+                            <td class="whitespace-nowrap px-5 py-4 text-right">
                                 <a href="{{ route('admin.achievements.edit', $achievement) }}"
-                                   class="text-brand-sky hover:underline">Ubah</a>
+                                   class="text-sm font-medium text-brand-sky transition-colors hover:text-brand-navy">Ubah</a>
                                 <form method="POST" action="{{ route('admin.achievements.destroy', $achievement) }}" class="inline"
                                       onsubmit="return confirm('Hapus prestasi ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="ml-3 text-red-600 hover:underline">Hapus</button>
+                                    <button type="submit" class="ml-4 text-sm font-medium text-red-600 transition-colors hover:text-red-700">Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-5 py-10 text-center text-gray-500">Belum ada data prestasi.</td>
+                            <td colspan="4" class="px-5 py-12 text-center text-slate-500">Belum ada data prestasi.</td>
                         </tr>
                     @endforelse
                 </tbody>

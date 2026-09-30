@@ -31,22 +31,18 @@
         }, 4000);
     </script>
 </head>
-<body class="bg-white text-gray-800 antialiased">
-    <a href="#konten-utama" class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:m-3 focus:rounded focus:bg-brand-navy focus:px-4 focus:py-2 focus:text-white">
+<body class="flex min-h-screen flex-col bg-white text-slate-800 antialiased">
+    <a href="#konten-utama" class="sr-only focus:not-sr-only focus:absolute focus:z-100 focus:m-3 focus:rounded-lg focus:bg-brand-navy focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white">
         Lewati ke konten utama
     </a>
 
-    <div class="flex flex-col min-h-screen">
-        <x-navbar />
+    <x-navbar />
 
-        <main id="konten-utama" class="flex-grow">
-            @yield('content')
-        </main>
+    <main id="konten-utama" class="flex-1">
+        @yield('content')
+    </main>
 
-        <x-footer />
-    </div>
-
-    
+    <x-footer />
 
     <x-chatbot />
 
@@ -63,7 +59,7 @@
         x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed bottom-20 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-brand-navy shadow-lg transition-colors hover:bg-brand-navy hover:text-white print:hidden"
+        class="fixed bottom-24 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-brand-navy shadow-card transition-colors hover:bg-brand-navy hover:text-white print:hidden"
         aria-label="Kembali ke atas"
     >
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

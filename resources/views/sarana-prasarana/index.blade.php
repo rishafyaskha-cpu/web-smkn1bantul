@@ -6,29 +6,35 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-white">
-        <x-page-title text="Sarana Prasarana" />
+    <x-page-title text="Sarana & Prasarana"
+                  :description="'Fasilitas pendukung pembelajaran yang tersedia di '.\App\Support\Site::name().'.'" />
 
-        <main class="py-10 lg:py-20 px-8 sm:px-14">
-            <x-breadcrumbs :breadcrumbs="[['label' => 'Sarana Prasarana']]" class="mb-8" />
+    <div class="container-page py-10 lg:py-14">
+        <x-breadcrumbs :breadcrumbs="[['label' => 'Sarana Prasarana']]" />
 
-            <div class="w-full flex flex-col gap-12 items-start sm:px-10 md:px-15 lg:px-20 font-metropolis">
-                @forelse ($items as $item)
-                    <article class="flex flex-col lg:flex-row w-full h-fit lg:h-[300px] rounded-2xl overflow-hidden shadow-lg" data-reveal="up">
-                        <img src="{{ $item->image_url }}" alt="{{ $item->title }}" loading="lazy"
-                             class="min-w-2/5 h-full mb-4 object-cover">
-                        <div class="flex-1 p-4">
-                            <h2 class="text-2xl font-medium mb-6">{{ $item->title }}</h2>
-                            <p class="text-lg text-gray-700">{{ $item->description }}</p>
-                            <a href="{{ route('sarana-prasarana.show', $item) }}" class="inline-block mt-4 text-brand-sky underline">
-                                Lihat detail
-                            </a>
+        <div class="mt-10 space-y-8">
+            @forelse ($items as $item)
+                <article class="group grid overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-slate-900/5 transition-shadow duration-300 hover:shadow-card-hover lg:grid-cols-5"
+                         data-reveal="up">
+                    @if ($item->image_url)
+                        <div class="aspect-[16/10] overflow-hidden bg-slate-100 lg:col-span-2 lg:aspect-auto lg:h-full">
+                            <img src="{{ $item->image_url }}" alt="{{ $item->title }}" loading="lazy"
+                                 class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
                         </div>
-                    </article>
-                @empty
-                    <p class="text-gray-500">Belum ada data sarana dan prasarana.</p>
-                @endforelse
-            </div>
-        </main>
+                    @endif
+
+                    <div class="flex flex-col p-6 sm:p-8 lg:col-span-3">
+                        <h2 class="font-display text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">{{ $item->title }}</h2>
+                        <p class="mt-3 flex-1 leading-relaxed text-slate-600">{{ $item->description }}</p>
+                        <a href="{{ route('sarana-prasarana.show', $item) }}" class="link-inline mt-5 inline-flex w-fit items-center gap-1.5 text-sm">
+                            Lihat detail
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </article>
+            @empty
+                <p class="py-20 text-center text-slate-500">Belum ada data sarana dan prasarana.</p>
+            @endforelse
+        </div>
     </div>
 @endsection

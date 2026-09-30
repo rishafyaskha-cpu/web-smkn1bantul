@@ -6,47 +6,36 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-gray-50">
-        <main class="py-10 lg:py-16 px-6 sm:px-10 lg:px-16 max-w-5xl mx-auto">
-            <div class="text-center space-y-4 mb-12">
-                <p class="text-gray-400 text-xl" data-reveal="up">Visi &amp; Misi</p>
-                <h1 class="text-5xl lg:text-6xl font-bold text-blue-900" data-reveal="up" data-reveal-delay="100">SMKN 1 Bantul</h1>
-            </div>
+    <x-page-title text="Visi & Misi"
+                  :description="'Arah dan komitmen '.\App\Support\Site::name().' dalam menyelenggarakan pendidikan vokasional.'" />
 
-            <x-breadcrumbs :breadcrumbs="[['label' => 'Visi & Misi']]" class="mb-10" />
+    <div class="container-page max-w-4xl py-10 lg:py-14">
+        <x-breadcrumbs :breadcrumbs="[['label' => 'Visi & Misi']]" />
 
-            <div class="space-y-10 w-full">
-                <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl shadow-md p-8" data-reveal="right">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-4">
-                        <span class="w-12 h-[2px] bg-gray-400"></span>
-                        Visi
-                        <span class="w-12 h-[2px] bg-gray-400"></span>
-                    </h2>
-                    @if ($visi)
-                        <p class="text-lg text-gray-700 leading-relaxed">{{ implode(' ', $visi) }}</p>
-                    @else
-                        <p class="text-lg text-gray-700 leading-relaxed">
-                            Terwujudnya sekolah berkualitas, berkarakter dan berwawasan lingkungan
-                        </p>
-                    @endif
-                </div>
+        <div class="mt-10 space-y-6">
+            <section class="rounded-2xl bg-brand-teal p-7 text-white shadow-panel sm:p-9" data-reveal="up">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">Visi</p>
+                <p class="mt-4 font-display text-xl font-medium leading-relaxed sm:text-2xl">
+                    {{ $visi ? implode(' ', $visi) : 'Terwujudnya sekolah berkualitas, berkarakter dan berwawasan lingkungan' }}
+                </p>
+            </section>
 
-                <div class="bg-gradient-to-r from-blue-50 to-gray-50 rounded-2xl shadow-md p-8" data-reveal="left" data-reveal-delay="150">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-4">
-                        <span class="w-12 h-[2px] bg-gray-400"></span>
-                        Misi
-                        <span class="w-12 h-[2px] bg-gray-400"></span>
-                    </h2>
+            <section class="card p-7 sm:p-9" data-reveal="up" data-reveal-delay="100">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-sky">Misi</p>
 
-                    @if ($misi)
-                        <ul class="space-y-4 text-gray-800 text-base leading-relaxed list-disc list-inside">
-                            @foreach ($misi as $point)
-                                <li>{{ $point }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-            </div>
-        </main>
+                @if ($misi)
+                    <ol class="mt-5 space-y-4">
+                        @foreach ($misi as $point)
+                            <li class="flex gap-4">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 font-display text-xs font-bold text-brand-navy">
+                                    {{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                                </span>
+                                <p class="pt-0.5 leading-relaxed text-slate-700">{{ $point }}</p>
+                            </li>
+                        @endforeach
+                    </ol>
+                @endif
+            </section>
+        </div>
     </div>
 @endsection

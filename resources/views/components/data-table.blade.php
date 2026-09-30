@@ -5,31 +5,31 @@
 ])
 
 @if (count($rows) > 0)
-    <div {{ $attributes->merge(['class' => 'bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden']) }} data-reveal="up">
+    <div {{ $attributes->merge(['class' => 'overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-slate-900/5']) }} data-reveal="up">
         @if ($caption)
-            <p class="px-4 sm:px-6 pt-4 sm:pt-6 text-sm font-semibold uppercase tracking-wider text-gray-700">{{ $caption }}</p>
+            <p class="border-b border-slate-100 px-6 py-4 text-sm font-semibold uppercase tracking-wider text-slate-700">{{ $caption }}</p>
         @endif
+
         <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
+            <table class="w-full text-left text-sm">
+                <thead class="border-b border-slate-200 bg-surface text-xs uppercase tracking-wide text-slate-600">
+                    <tr>
                         @foreach ($headers as $index => $header)
                             <th scope="col" @class([
-                                'px-3 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider',
-                                'text-left' => $index > 0,
-                                'w-16 sm:w-20 lg:w-24 text-left' => $index === 0,
+                                'px-6 py-3.5 font-semibold',
+                                'w-20' => $index === 0,
                             ])>{{ $header }}</th>
                         @endforeach
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-slate-100">
                     @foreach ($rows as $row)
-                        <tr class="hover:bg-gray-50 transition-colors duration-150">
+                        <tr class="transition-colors duration-150 hover:bg-surface">
                             @foreach ((array) $row as $index => $cell)
                                 <td @class([
-                                    'px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base',
-                                    'text-gray-700 font-medium' => $index === 0,
-                                    'text-gray-600' => $index > 0,
+                                    'px-6 py-4',
+                                    'font-medium text-slate-900' => $index === 0,
+                                    'text-slate-600' => $index > 0,
                                 ])>{{ $cell }}</td>
                             @endforeach
                         </tr>

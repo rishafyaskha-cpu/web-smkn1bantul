@@ -2,54 +2,60 @@
     use App\Support\Site;
 @endphp
 
-<section class="w-full bg-gray-50 py-12 sm:py-16 px-4 sm:px-6 lg:px-12">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 md:grid-rows-4 gap-4 md:gap-6">
-        <div class="md:col-span-3 md:row-span-2 relative rounded-2xl overflow-hidden shadow-md" data-reveal="right">
-            <img src="{{ Site::heroImage() }}" alt="{{ Site::name() }}" loading="lazy"
-                 class="w-full h-56 sm:h-64 md:h-80 object-cover brightness-75">
-            <div class="absolute inset-0 bg-black/30"></div>
-            <div class="absolute top-3 left-3 md:top-4 md:left-4">
-                <img src="{{ asset('images/location label.png') }}" alt="Lokasi" class="w-24 sm:w-28 md:w-35" loading="lazy">
-            </div>
-            <div class="absolute bottom-3 left-3 md:bottom-4 md:left-4 text-white pr-3">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-poppins mb-1">{{ Site::name() }}</h2>
-                <p class="text-xs sm:text-sm md:text-base max-w-md leading-snug">{{ Site::address() }}</p>
-            </div>
-        </div>
-
-        <div class="md:col-start-1 md:col-span-3 md:row-start-3 md:row-span-2 rounded-2xl overflow-hidden shadow-md order-3 md:order-none" data-reveal="right" data-reveal-delay="150">
-            <iframe title="Lokasi {{ Site::name() }}" src="{{ Site::mapEmbedUrl() }}" width="100%" height="280"
-                    style="border: 0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                    class="w-full h-56 sm:h-64 md:h-full rounded-2xl"></iframe>
-        </div>
-
-        <div class="flex flex-wrap md:flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 md:col-span-2 md:row-span-2 md:col-start-4 md:row-start-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-poppins text-gray-900 py-6 md:py-0 order-1 md:order-none" data-reveal="left">
-            <span>Temukan</span>
-            <span class="text-[#063852]">Kami</span>
-            <span>di sini</span>
-        </div>
-
-        <div class="md:col-span-2 md:row-span-2 md:col-start-4 md:row-start-3 md:ml-2 bg-white border border-gray-200 shadow-md rounded-2xl p-5 sm:p-6 w-full space-y-3 sm:space-y-4 order-2 md:order-none" data-reveal="left" data-reveal-delay="150">
-            <h3 class="text-lg sm:text-xl font-semibold border-b border-gray-300 pb-2 text-[#063852]">Hubungi Kami</h3>
-
-            @if (Site::phone())
-                <div class="flex items-center gap-3">
-                    <img src="{{ asset('images/telepon-label.png') }}" alt="Telepon" width="24" height="24" loading="lazy">
-                    <a href="tel:{{ preg_replace('/\s+/', '', Site::phone()) }}" class="text-sm sm:text-base text-gray-700 hover:text-brand-navy">{{ Site::phone() }}</a>
+<section class="section">
+    <div class="container-page">
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div class="relative overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-900/5" data-reveal="right">
+                <img src="{{ Site::heroImage() }}" alt="{{ Site::name() }}" loading="lazy"
+                     class="h-72 w-full object-cover brightness-[0.65] sm:h-80 lg:h-full lg:min-h-[26rem]">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent p-6 pt-16 sm:p-8 sm:pt-20">
+                    <img src="{{ asset('images/location label.png') }}" alt="" class="mb-3 w-24 sm:w-28" loading="lazy">
+                    <h2 class="font-display text-xl font-bold text-white sm:text-2xl">{{ Site::name() }}</h2>
+                    <p class="mt-1.5 max-w-md text-sm leading-relaxed text-slate-200">{{ Site::address() }}</p>
                 </div>
-            @endif
+            </div>
 
-            @if (Site::get('contact.email'))
-                <div class="flex items-center gap-3">
-                    <img src="{{ asset('images/email label.png') }}" alt="Email" width="24" height="24" loading="lazy">
-                    <a href="mailto:{{ Site::get('contact.email') }}" class="text-sm sm:text-base text-gray-700 hover:text-brand-navy break-all">{{ Site::get('contact.email') }}</a>
+            <div class="flex flex-col gap-6">
+                <div class="overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-900/5" data-reveal="left" data-reveal-delay="100">
+                    <iframe title="Lokasi {{ Site::name() }}" src="{{ Site::mapEmbedUrl() }}" width="100%" height="260"
+                            style="border: 0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            class="h-64 w-full sm:h-72"></iframe>
                 </div>
-            @endif
 
-            <a href="{{ Site::mapsUrl() }}" target="_blank" rel="noopener noreferrer"
-               class="mt-4 sm:mt-6 w-full inline-block text-center bg-[#063852] text-white py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium hover:bg-[#052c42] transition">
-                Datang Sekarang
-            </a>
+                <div class="card flex flex-1 flex-col p-6 sm:p-7" data-reveal="left" data-reveal-delay="150">
+                    <h3 class="font-display text-lg font-bold text-slate-900">Hubungi Kami</h3>
+
+                    <dl class="mt-5 space-y-4 text-sm">
+                        @if (Site::phone())
+                            <div class="flex items-start gap-3">
+                                <img src="{{ asset('images/telepon-label.png') }}" alt="" width="20" height="20" class="mt-0.5 h-5 w-5 object-contain" loading="lazy">
+                                <div>
+                                    <dt class="text-xs font-medium text-slate-500">Telepon</dt>
+                                    <dd class="mt-0.5">
+                                        <a href="tel:{{ preg_replace('/\s+/', '', Site::phone()) }}" class="text-slate-800 transition-colors hover:text-brand-navy">{{ Site::phone() }}</a>
+                                    </dd>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if (Site::get('contact.email'))
+                            <div class="flex items-start gap-3">
+                                <img src="{{ asset('images/email label.png') }}" alt="" width="20" height="20" class="mt-0.5 h-5 w-5 object-contain" loading="lazy">
+                                <div class="min-w-0">
+                                    <dt class="text-xs font-medium text-slate-500">Email</dt>
+                                    <dd class="mt-0.5">
+                                        <a href="mailto:{{ Site::get('contact.email') }}" class="break-all text-slate-800 transition-colors hover:text-brand-navy">{{ Site::get('contact.email') }}</a>
+                                    </dd>
+                                </div>
+                            </div>
+                        @endif
+                    </dl>
+
+                    <x-button :href="Site::mapsUrl()" target="_blank" variant="dark" size="lg" class="mt-6 w-full">
+                        Petunjuk Arah
+                    </x-button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

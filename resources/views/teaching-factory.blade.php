@@ -6,33 +6,35 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-gray-50">
-        <x-page-title text="Teaching Factory" />
+    <x-page-title text="Teaching Factory"
+                  :description="'Kemitraan '.\App\Support\Site::name().' dengan industri untuk memberi pengalaman kerja nyata bagi siswa.'" />
 
-        <main class="py-10 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <x-breadcrumbs :breadcrumbs="[['label' => 'Teaching Factory']]" class="mb-8" />
+    <div class="container-page py-10 lg:py-14">
+        <x-breadcrumbs :breadcrumbs="[['label' => 'Teaching Factory']]" />
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
-                @forelse ($partners as $partner)
-                    <article class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center" data-reveal="up" data-reveal-delay="{{ ($loop->index % 3) * 100 }}">
-                        <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900 min-h-[2.5rem] sm:min-h-[3rem] flex items-center justify-center px-2 leading-tight">
-                            <a href="{{ $partner->programKeahlian ? route('program-keahlian.show', $partner->programKeahlian) : '#' }}"
-                               class="hover:text-brand-navy">{{ $partner->title }}</a>
-                        </h2>
-                        <p class="text-xs sm:text-sm text-gray-600 font-medium mt-3 sm:mt-4 lg:mt-6">
-                            {{ $partner->partner_name ?: 'Bekerjasama Dengan' }}
-                        </p>
-                        <div class="w-full h-20 sm:h-24 lg:h-32 flex items-center justify-center mt-3 sm:mt-4 lg:mt-6">
-                            @if ($partner->logo_url)
-                                <img src="{{ $partner->logo_url }}" alt="{{ $partner->partner_name ?: $partner->title }}" loading="lazy"
-                                     class="max-w-full max-h-full object-contain">
-                            @endif
-                        </div>
-                    </article>
-                @empty
-                    <p class="col-span-full text-center text-gray-500 py-16">Belum ada data mitra Teaching Factory.</p>
-                @endforelse
-            </div>
-        </main>
+        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            @forelse ($partners as $partner)
+                <article class="group flex flex-col items-center rounded-2xl bg-white p-6 text-center shadow-card ring-1 ring-slate-900/5 transition-shadow duration-300 hover:shadow-card-hover sm:p-7"
+                         data-reveal="up" data-reveal-delay="{{ ($loop->index % 3) * 100 }}">
+                    <div class="flex h-24 w-full items-center justify-center">
+                        @if ($partner->logo_url)
+                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->partner_name ?: $partner->title }}" loading="lazy"
+                                 class="max-h-20 max-w-[10rem] object-contain">
+                        @endif
+                    </div>
+
+                    <h2 class="mt-5 font-display text-base font-bold leading-snug text-slate-900 sm:text-lg">
+                        <a href="{{ $partner->programKeahlian ? route('program-keahlian.show', $partner->programKeahlian) : '#' }}"
+                           class="transition-colors hover:text-brand-navy">{{ $partner->title }}</a>
+                    </h2>
+
+                    <p class="mt-1.5 text-sm text-slate-500">
+                        {{ $partner->partner_name ?: 'Bekerjasama Dengan' }}
+                    </p>
+                </article>
+            @empty
+                <p class="col-span-full py-20 text-center text-slate-500">Belum ada data mitra Teaching Factory.</p>
+            @endforelse
+        </div>
     </div>
 @endsection

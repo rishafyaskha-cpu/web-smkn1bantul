@@ -6,24 +6,25 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-white">
-        <main class="py-10 lg:py-16 px-8 sm:px-14">
-            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10">
-                <div class="w-full lg:w-2/5 flex flex-col items-end">
-                    <h1 class="flex flex-col text-[2.5rem] lg:text-[4rem] font-tt-norms font-medium text-right leading-tight" data-reveal="right">
-                        <span>Perjalanan</span>
-                        <span>Panjang</span>
-                        <span>SMKN 1 Bantul</span>
+    <div class="bg-white">
+        <div class="container-page py-10 lg:py-14">
+            <x-breadcrumbs :breadcrumbs="[['label' => 'Sejarah']]" />
+
+            <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-14">
+                <div class="lg:col-span-5" data-reveal="right">
+                    <p class="eyebrow">Profil Sekolah</p>
+                    <h1 class="mt-3 font-display text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-[2.75rem]">
+                        Perjalanan Panjang {{ \App\Support\Site::shortName() }}
                     </h1>
-                    <div class="w-7/10 mt-8 rounded-2xl overflow-hidden shadow-[4px_4px_27px_rgba(0,0,0,0.25)]" data-reveal="zoom" data-reveal-delay="150">
-                        <img class="w-full aspect-square object-cover h-auto" src="{{ \App\Support\Site::heroImage() }}" alt="Gedung sekolah" loading="lazy">
+
+                    <div class="mt-8 overflow-hidden rounded-2xl shadow-card ring-1 ring-slate-900/5">
+                        <img src="{{ \App\Support\Site::heroImage() }}" alt="Gedung {{ \App\Support\Site::name() }}"
+                             class="aspect-[4/3] w-full object-cover" loading="lazy">
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/2 space-y-8" data-reveal="left">
-                    <x-breadcrumbs :breadcrumbs="[['label' => 'Sejarah']]" />
-
-                    <div class="space-y-6 text-gray-700 leading-relaxed font-tt-norms">
+                <div class="lg:col-span-7" data-reveal="left" data-reveal-delay="100">
+                    <div class="space-y-5 leading-relaxed text-slate-700">
                         @forelse ($paragraphs as $paragraph)
                             <p>{{ $paragraph }}</p>
                         @empty
@@ -32,6 +33,6 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 @endsection

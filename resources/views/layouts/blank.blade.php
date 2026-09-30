@@ -13,9 +13,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-white text-gray-800 antialiased">
-    <div class="flex min-h-screen flex-col">
-        @yield('content')
-    </div>
+<body class="flex min-h-screen flex-col bg-white text-slate-800 antialiased">
+    @yield('content')
 </body>
 </html>

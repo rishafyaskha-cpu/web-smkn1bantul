@@ -22,59 +22,75 @@
 @endphp
 
 @section('content')
-    <article class="min-h-screen bg-gray-50">
-        <div class="max-w-3xl mx-auto px-6 sm:px-10 py-10 lg:py-16">
+    <article class="bg-white">
+        <div class="container-page max-w-3xl py-10 lg:py-14">
             <x-breadcrumbs :breadcrumbs="[
                 ['label' => 'Berita', 'url' => route('berita.index')],
                 ['label' => $article->title],
-            ]" class="mb-8" />
+            ]" />
 
-            <header class="mb-8" data-reveal="up">
-                <p class="text-sm text-gray-500 mb-3 flex flex-wrap items-center gap-x-3">
+            <header class="mt-8" data-reveal="up">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium uppercase tracking-wide text-slate-500">
                     <time datetime="{{ $article->published_at->toDateString() }}">{{ $article->formatted_date }}</time>
                     @if ($article->author)
-                        <span class="text-gray-400">Penulis: {{ $article->author }}</span>
+                        <span aria-hidden="true" class="text-slate-300">&middot;</span>
+                        <span>{{ $article->author }}</span>
                     @endif
                     @if ($article->source)
-                        <span class="text-gray-400">{{ $article->source }}</span>
+                        <span aria-hidden="true" class="text-slate-300">&middot;</span>
+                        <span>{{ $article->source }}</span>
                     @endif
-                    <span class="text-gray-400">{{ $article->reading_time }} menit baca</span>
-                </p>
-                <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">{{ $article->title }}</h1>
+                    <span aria-hidden="true" class="text-slate-300">&middot;</span>
+                    <span>{{ $article->reading_time }} menit baca</span>
+                </div>
+
+                <h1 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                    {{ $article->title }}
+                </h1>
+
                 @if ($article->excerpt)
-                    <p class="mt-4 text-lg text-gray-600 leading-relaxed">{{ $article->excerpt }}</p>
+                    <p class="mt-5 text-lg leading-relaxed text-slate-600">{{ $article->excerpt }}</p>
                 @endif
             </header>
+        </div>
 
-            @if ($article->image_url)
+        @if ($article->image_url)
+            <figure class="container-page max-w-4xl" data-reveal="zoom">
                 <img src="{{ $article->image_url }}" alt="{{ $article->title }}" loading="lazy"
-                     class="w-full rounded-2xl shadow-md mb-8 object-cover" data-reveal="zoom">
-            @endif
+                     class="aspect-[16/9] w-full rounded-2xl object-cover shadow-card">
+            </figure>
+        @endif
 
+        <div class="container-page max-w-3xl py-10 lg:py-12">
             @if ($article->body)
-                <div class="prose-body font-tt-norms text-gray-700 text-lg" data-reveal="up">{!! nl2br(e($article->body)) !!}</div>
+                <div class="prose-body text-lg text-slate-700" data-reveal="up">{!! nl2br(e($article->body)) !!}</div>
             @endif
 
             @if ($article->external_url)
-                <a href="{{ $article->external_url }}" target="_blank" rel="noopener noreferrer"
-                   class="inline-block mt-6 rounded-full bg-neutral-900 px-8 py-2.5 text-white text-sm font-medium hover:bg-brand-sky transition">
+                <x-button :href="$article->external_url" target="_blank" variant="dark" size="lg" class="mt-8">
                     Baca di sumber asli
-                </a>
+                    <span aria-hidden="true">&nearr;</span>
+                </x-button>
             @endif
 
-            <a href="{{ route('berita.index') }}" class="mt-10 inline-block text-brand-sky underline">&larr; Kembali ke daftar berita</a>
+            <a href="{{ route('berita.index') }}" class="link-inline mt-10 inline-flex items-center gap-1.5 text-sm">
+                <span aria-hidden="true">&larr;</span>
+                Kembali ke daftar berita
+            </a>
         </div>
 
         @if ($related->isNotEmpty())
-            <section class="w-full bg-neutral-semiblue py-12 lg:py-16 px-6 lg:px-16">
-                <div class="max-w-7xl mx-auto">
-                    <h2 class="text-2xl font-bold text-brand-teal mb-8">Berita Lainnya</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section class="border-t border-slate-200/80 bg-surface">
+                <div class="container-page py-12 lg:py-16">
+                    <h2 class="font-display text-2xl font-bold tracking-tight text-slate-900">Berita Lainnya</h2>
+
+                    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($related as $item)
-                            <a href="{{ route('berita.show', $item) }}" class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow p-6 flex flex-col gap-2">
-                                <p class="text-xs text-gray-500">{{ $item->formatted_date }}</p>
-                                <h3 class="font-bold text-gray-900">{{ $item->title }}</h3>
-                                <p class="text-sm text-gray-600 line-clamp-2">{{ $item->excerpt }}</p>
+                            <a href="{{ route('berita.show', $item) }}"
+                               class="group flex flex-col gap-2 rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-900/5 transition-shadow duration-300 hover:shadow-card-hover">
+                                <p class="text-xs font-medium uppercase tracking-wide text-slate-500">{{ $item->formatted_date }}</p>
+                                <h3 class="font-display font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-navy">{{ $item->title }}</h3>
+                                <p class="line-clamp-2 text-sm leading-relaxed text-slate-600">{{ $item->excerpt }}</p>
                             </a>
                         @endforeach
                     </div>

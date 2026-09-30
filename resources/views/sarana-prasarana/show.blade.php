@@ -8,25 +8,31 @@
 @endphp
 
 @section('content')
-    <div class="min-h-screen bg-white">
-        <x-page-title text="Sarana Prasarana" />
-
-        <main class="py-10 lg:py-16 px-6 sm:px-10 lg:px-16 max-w-5xl mx-auto">
+    <article class="bg-white">
+        <div class="container-page max-w-4xl py-10 lg:py-14">
             <x-breadcrumbs :breadcrumbs="[
                 ['label' => 'Sarana Prasarana', 'url' => route('sarana-prasarana.index')],
                 ['label' => $item->title],
-            ]" class="mb-8" />
+            ]" />
 
-            <article class="flex flex-col gap-8" data-reveal="up">
-                @if ($item->image_url)
-                    <img src="{{ $item->image_url }}" alt="{{ $item->title }}" class="w-full rounded-2xl shadow-md object-cover" loading="lazy">
-                @endif
+            <header class="mt-8" data-reveal="up">
+                <p class="eyebrow">Sarana &amp; Prasarana</p>
+                <h1 class="mt-3 font-display text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                    {{ $item->title }}
+                </h1>
+            </header>
 
-                <h1 class="text-3xl lg:text-4xl font-bold text-brand-teal">{{ $item->title }}</h1>
-                <p class="text-lg text-gray-700 leading-relaxed font-tt-norms">{{ $item->description }}</p>
+            @if ($item->image_url)
+                <img src="{{ $item->image_url }}" alt="{{ $item->title }}" loading="lazy"
+                     class="mt-8 aspect-[16/9] w-full rounded-2xl object-cover shadow-card" data-reveal="zoom">
+            @endif
 
-                <a href="{{ route('sarana-prasarana.index') }}" class="text-brand-sky underline w-fit">&larr; Kembali ke daftar</a>
-            </article>
-        </main>
-    </div>
+            <p class="mt-8 text-lg leading-relaxed text-slate-700" data-reveal="up">{{ $item->description }}</p>
+
+            <a href="{{ route('sarana-prasarana.index') }}" class="link-inline mt-10 inline-flex items-center gap-1.5 text-sm">
+                <span aria-hidden="true">&larr;</span>
+                Kembali ke daftar sarana prasarana
+            </a>
+        </div>
+    </article>
 @endsection
