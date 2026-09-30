@@ -271,6 +271,84 @@ class ChatbotTest extends TestCase
             ->assertSee('chatbot({', false);
     }
 
+    public function test_chatbot_widget_renders_suggestion_chips(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Pertanyaan populer')
+            ->assertSee('suggestion-chip', false);
+    }
+
+    public function test_chatbot_suggestions_are_tailored_to_the_current_page(): void
+    {
+        $this->get(route('ppdb'))
+            ->assertOk()
+            ->assertSee('Apa syarat mendaftar PPDB?')
+            ->assertDontSee('Apa saja fasilitas di sekolah ini?');
+    }
+
+    public function test_knowledge_base_includes_site_navigation_links(): void
+    {
+        $knowledge = app(SchoolKnowledgeBase::class)->build();
+
+        $this->assertStringContainsString('== PETA HALAMAN WEBSITE', $knowledge);
+        $this->assertStringContainsString(route('ppdb'), $knowledge);
+        $this->assertStringContainsString(route('program-keahlian.index'), $knowledge);
+    }
+
+    public function test_knowledge_base_includes_program_detail_and_page_links(): void
+    {
+        $program = ProgramKeahlian::create([
+            'slug' => 'teknik-komputer-jaringan',
+            'title' => 'Teknik Komputer dan Jaringan',
+            'category' => 'TIK',
+            'summary' => 'Belajar jaringan komputer.',
+            'sections' => [
+                ['type' => 'paragraph', 'text' => 'Mempelajari instalasi jaringan fiber optic.'],
+            ],
+            'is_published' => true,
+            'sort_order' => 1,
+        ]);
+
+        app(SchoolKnowledgeBase::class)->flush();
+
+        $knowledge = app(SchoolKnowledgeBase::class)->build();
+
+        $this->assertStringContainsString('Teknik Komputer dan Jaringan', $knowledge);
+        $this->assertStringContainsString('instalasi jaringan fiber optic', $knowledge);
+        $this->assertStringContainsString(route('program-keahlian.show', $program), $knowledge);
+    }
+
+    public function test_knowledge_base_excludes_unpublished_content(): void
+    {
+        ProgramKeahlian::create([
+            'slug' => 'jurusan-rahasia',
+            'title' => 'Jurusan Rahasia',
+            'summary' => 'Belum boleh dipublikasikan.',
+            'sections' => [],
+            'is_published' => false,
+            'sort_order' => 1,
+        ]);
+
+        app(SchoolKnowledgeBase::class)->flush();
+
+        $this->assertStringNotContainsString('Jurusan Rahasia', app(SchoolKnowledgeBase::class)->build());
+    }
+
+    public function test_system_instruction_tells_bot_to_share_page_links(): void
+    {
+        $this->fakeGeminiAnswer('Baik.');
+
+        $this->postJson(route('chatbot.ask'), ['message' => 'Apa saja jurusan?'])->assertOk();
+
+        Http::assertSent(function (Request $request): bool {
+            $instruction = $request['systemInstruction']['parts'][0]['text'] ?? '';
+
+            return str_contains($instruction, 'PETA HALAMAN WEBSITE')
+                && str_contains($instruction, 'tautan halaman website');
+        });
+    }
+
     public function test_chatbot_widget_is_hidden_when_disabled(): void
     {
         config()->set('services.chatbot.enabled', false);

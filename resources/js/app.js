@@ -76,15 +76,27 @@ Alpine.data('navDropdown', () => ({
 Alpine.data('chatbot', (config = {}) => ({
     open: false,
     loading: false,
+    hovered: false,
+    hasInteracted: false,
     input: '',
     error: null,
     messages: [],
+    suggestions: config.suggestions ?? [],
     endpoint: config.endpoint ?? '',
     greeting: config.greeting ?? 'Halo! Ada yang bisa saya bantu?',
     unavailableMessage: config.unavailableMessage ?? '',
+    messageId: 0,
 
     init() {
-        this.messages = [{ role: 'assistant', content: this.greeting }];
+        this.messages = [this.createMessage('assistant', this.greeting)];
+
+        const seen = window.sessionStorage?.getItem('chatbot.interacted');
+
+        this.hasInteracted = seen === 'true';
+    },
+
+    get showSuggestions() {
+        return ! this.loading && this.suggestions.length > 0 && this.messages.length <= 1;
     },
 
     get history() {
@@ -96,10 +108,21 @@ Alpine.data('chatbot', (config = {}) => ({
             }));
     },
 
+    createMessage(role, content) {
+        return {
+            id: ++this.messageId,
+            role,
+            content,
+            time: new Intl.DateTimeFormat('id-ID', { hour: '2-digit', minute: '2-digit' }).format(new Date()),
+        };
+    },
+
     toggle() {
-        this.open = !this.open;
+        this.open = ! this.open;
 
         if (this.open) {
+            this.hasInteracted = true;
+            window.sessionStorage?.setItem('chatbot.interacted', 'true');
             this.$nextTick(() => this.$refs.chatInput?.focus());
         }
     },
@@ -107,6 +130,25 @@ Alpine.data('chatbot', (config = {}) => ({
     close() {
         this.open = false;
         this.$nextTick(() => this.$refs.chatToggle?.focus());
+    },
+
+    reset() {
+        this.error = null;
+        this.input = '';
+        this.messages = [this.createMessage('assistant', this.greeting)];
+        this.$nextTick(() => this.$refs.chatInput?.focus());
+    },
+
+    askSuggestion(question) {
+        this.input = question;
+        this.send();
+    },
+
+    autoGrow(event) {
+        const element = event.target;
+
+        element.style.height = 'auto';
+        element.style.height = `${Math.min(element.scrollHeight, 112)}px`;
     },
 
     async send() {
@@ -118,7 +160,14 @@ Alpine.data('chatbot', (config = {}) => ({
 
         this.error = null;
         this.input = '';
-        this.messages.push({ role: 'user', content: question });
+        this.hasInteracted = true;
+        window.sessionStorage?.setItem('chatbot.interacted', 'true');
+
+        if (this.$refs.chatInput) {
+            this.$refs.chatInput.style.height = 'auto';
+        }
+
+        this.messages.push(this.createMessage('user', question));
         this.loading = true;
         this.scrollToLatest();
 
@@ -142,13 +191,10 @@ Alpine.data('chatbot', (config = {}) => ({
                 throw new Error(data.error ?? 'Maaf, terjadi kendala. Silakan coba lagi.');
             }
 
-            this.messages.push({ role: 'assistant', content: data.answer });
+            this.messages.push(this.createMessage('assistant', data.answer));
         } catch (error) {
             this.error = error.message;
-            this.messages.push({
-                role: 'assistant',
-                content: 'Maaf, saya belum bisa menjawab saat ini. Silakan coba lagi nanti.',
-            });
+            this.messages.push(this.createMessage('assistant', 'Maaf, saya belum bisa menjawab saat ini. Silakan coba lagi nanti.'));
         } finally {
             this.loading = false;
             this.scrollToLatest();
@@ -160,7 +206,7 @@ Alpine.data('chatbot', (config = {}) => ({
             const container = this.$refs.chatLog;
 
             if (container) {
-                container.scrollTop = container.scrollHeight;
+                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
             }
         });
     },

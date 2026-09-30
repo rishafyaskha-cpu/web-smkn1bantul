@@ -50,6 +50,14 @@ return [
         'per_ip_per_minute' => env('CHATBOT_PER_IP_PER_MINUTE', 10),
         'per_ip_daily_limit' => env('CHATBOT_PER_IP_DAILY_LIMIT', 30),
         'global_daily_limit' => env('CHATBOT_GLOBAL_DAILY_LIMIT', 300),
+        'suggestions' => [
+            'Apa saja program keahlian yang ada?',
+            'Bagaimana cara mendaftar PPDB?',
+            'Apa saja fasilitas di sekolah ini?',
+            'Prestasi terbaru siswa apa saja?',
+            'Ekstrakurikuler apa yang tersedia?',
+            'Di mana alamat dan kontak sekolah?',
+        ],
     ],
 
 ];

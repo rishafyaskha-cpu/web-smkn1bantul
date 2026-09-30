@@ -13,6 +13,7 @@ use App\Models\SaranaPrasarana;
 use App\Models\SiteStatistic;
 use App\Models\TeachingFactory;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class SchoolKnowledgeBase
 {
@@ -43,6 +44,7 @@ class SchoolKnowledgeBase
             $this->achievements(),
             $this->ppdb(),
             $this->news(),
+            $this->siteNavigation(),
         ]);
 
         return implode("\n\n", $sections);
@@ -84,7 +86,18 @@ class SchoolKnowledgeBase
         }
 
         if ($history = Site::get('history.body')) {
-            $lines[] = 'SEJARAH SINGKAT: '.$this->plainText($history);
+            $lines[] = 'SEJARAH SINGKAT: '.Str::limit($this->plainText($history), 1200);
+        }
+
+        $socials = collect([
+            'YouTube' => Site::get('social.youtube'),
+            'Instagram' => Site::get('social.instagram'),
+            'Telegram' => Site::get('social.telegram'),
+            'TikTok' => Site::get('social.tiktok'),
+        ])->filter();
+
+        if ($socials->isNotEmpty()) {
+            $lines[] = 'MEDIA SOSIAL RESMI: '.$socials->map(fn ($url, $name): string => "{$name} ({$url})")->implode(', ');
         }
 
         return "== PROFIL SEKOLAH ==\n".implode("\n", $lines);
@@ -122,6 +135,14 @@ class SchoolKnowledgeBase
                 $parts[] = $program->summary;
             }
 
+            $parts[] = 'Halaman: '.route('program-keahlian.show', $program->slug);
+
+            $detail = $this->sectionsText($program->sections ?? []);
+
+            if ($detail !== '') {
+                $parts[] = 'Detail: '.Str::limit($detail, 600);
+            }
+
             return implode(' ', $parts);
         })->all();
 
@@ -137,9 +158,11 @@ class SchoolKnowledgeBase
         }
 
         $lines = $items->map(function (SaranaPrasarana $item): string {
-            return $item->description
-                ? "- {$item->title}: ".$this->plainText($item->description)
+            $line = $item->description
+                ? "- {$item->title}: ".Str::limit($this->plainText($item->description), 400)
                 : "- {$item->title}";
+
+            return $line.' (halaman: '.route('sarana-prasarana.show', $item->slug).')';
         })->all();
 
         return "== SARANA DAN PRASARANA ==\n".implode("\n", $lines);
@@ -153,7 +176,13 @@ class SchoolKnowledgeBase
             return '';
         }
 
-        return "== EKSTRAKURIKULER ==\n".$items->pluck('name')->implode(', ');
+        $lines = $items->map(function (Ekstrakurikuler $item): string {
+            return $item->description
+                ? "- {$item->name}: ".Str::limit($this->plainText($item->description), 200)
+                : "- {$item->name}";
+        })->all();
+
+        return "== EKSTRAKURIKULER ==\n".implode("\n", $lines);
     }
 
     private function studentOrganizations(): string
@@ -164,21 +193,37 @@ class SchoolKnowledgeBase
             return '';
         }
 
-        return "== ORGANISASI SISWA ==\n".$items->pluck('name')->implode(', ');
+        $lines = $items->map(function (OrganisasiSiswa $item): string {
+            return $item->description
+                ? "- {$item->name}: ".Str::limit($this->plainText($item->description), 200)
+                : "- {$item->name}";
+        })->all();
+
+        return "== ORGANISASI SISWA ==\n".implode("\n", $lines);
     }
 
     private function teachingFactories(): string
     {
-        $items = TeachingFactory::published()->ordered()->get();
+        $items = TeachingFactory::published()->ordered()->with('programKeahlian')->get();
 
         if ($items->isEmpty()) {
             return '';
         }
 
         $lines = $items->map(function (TeachingFactory $item): string {
-            return $item->partner_name
+            $line = $item->partner_name
                 ? "- {$item->title} bekerja sama dengan {$item->partner_name}"
                 : "- {$item->title}";
+
+            if ($item->programKeahlian) {
+                $line .= " (program: {$item->programKeahlian->title})";
+            }
+
+            if ($item->description) {
+                $line .= '. '.Str::limit($this->plainText($item->description), 300);
+            }
+
+            return $line;
         })->all();
 
         return "== TEACHING FACTORY (KEMITRAAN INDUSTRI) ==\n".implode("\n", $lines);
@@ -186,7 +231,7 @@ class SchoolKnowledgeBase
 
     private function achievements(): string
     {
-        $items = Achievement::published()->ordered()->limit(15)->get();
+        $items = Achievement::published()->ordered()->limit(20)->get();
 
         if ($items->isEmpty()) {
             return '';
@@ -207,6 +252,10 @@ class SchoolKnowledgeBase
 
             if ($item->level) {
                 $line .= " [tingkat {$item->level}]";
+            }
+
+            if ($item->achieved_at) {
+                $line .= ' ['.$item->achieved_at->translatedFormat('F Y').']';
             }
 
             return $line;
@@ -234,33 +283,100 @@ class SchoolKnowledgeBase
 
         if ($programs->isNotEmpty()) {
             $lines[] = 'PROGRAM YANG DIBUKA SAAT PPDB:';
-            $lines[] = $programs->map(fn (PpdbProgram $program): string => "- {$program->title} ({$program->category})")->implode("\n");
+            $lines[] = $programs->map(fn (PpdbProgram $program): string => "- {$program->title} ({$program->category})".($program->description ? ': '.Str::limit($this->plainText($program->description), 200) : ''))->implode("\n");
         }
 
         if ($spmb = Site::get('ppdb.spmb_url')) {
             $lines[] = 'TAUTAN PENDAFTARAN ONLINE (SPMB): '.$spmb;
         }
 
+        if ($download = Site::get('ppdb.download_url')) {
+            $lines[] = 'TAUTAN UNDUH BERKAS PPDB: '.$download;
+        }
+
         if ($lines === []) {
             return '';
         }
+
+        $lines[] = 'HALAMAN INFORMASI PPDB DI WEBSITE: '.route('ppdb');
 
         return "== PENERIMAAN PESERTA DIDIK BARU (PPDB) ==\n".implode("\n", $lines);
     }
 
     private function news(): string
     {
-        $articles = Article::published()->latest()->limit(5)->get();
+        $articles = Article::published()->latest()->limit(8)->get();
 
         if ($articles->isEmpty()) {
             return '';
         }
 
         $lines = $articles->map(function (Article $article): string {
-            return "- {$article->title} ({$article->formatted_date})";
+            $line = "- {$article->title} ({$article->formatted_date})";
+
+            if ($article->excerpt) {
+                $line .= ': '.Str::limit($this->plainText($article->excerpt), 200);
+            }
+
+            return $line.' (halaman: '.route('berita.show', $article->slug).')';
         })->all();
 
+        $lines[] = 'HALAMAN SEMUA BERITA: '.route('berita.index');
+
         return "== BERITA TERBARU ==\n".implode("\n", $lines);
+    }
+
+    private function siteNavigation(): string
+    {
+        $lines = [
+            '- Beranda: '.route('home'),
+            '- Sejarah sekolah: '.route('sejarah'),
+            '- Visi & Misi: '.route('visi-misi'),
+            '- Struktur Organisasi: '.route('struktur-organisasi'),
+            '- Sarana & Prasarana: '.route('sarana-prasarana.index'),
+            '- Program Keahlian: '.route('program-keahlian.index'),
+            '- Berita & Informasi: '.route('berita.index'),
+            '- Prestasi Siswa: '.route('prestasi'),
+            '- Ekstrakurikuler: '.route('ekstrakurikuler'),
+            '- Organisasi Siswa: '.route('organisasi-siswa'),
+            '- Teaching Factory: '.route('teaching-factory'),
+            '- Informasi PPDB: '.route('ppdb'),
+        ];
+
+        return "== PETA HALAMAN WEBSITE (gunakan tautan ini saat mengarahkan pengunjung) ==\n".implode("\n", $lines);
+    }
+
+    /**
+     * @param  array<int, array<string, mixed>>  $sections
+     */
+    private function sectionsText(array $sections): string
+    {
+        $parts = [];
+
+        foreach ($sections as $section) {
+            $type = $section['type'] ?? null;
+
+            if ($type === 'list') {
+                $items = collect($section['items'] ?? [])
+                    ->map(fn ($item): string => $this->plainText((string) $item))
+                    ->filter()
+                    ->all();
+
+                if ($items !== []) {
+                    $parts[] = implode('; ', $items);
+                }
+
+                continue;
+            }
+
+            $text = $this->plainText((string) ($section['text'] ?? ''));
+
+            if ($text !== '') {
+                $parts[] = $text;
+            }
+        }
+
+        return trim(implode(' ', $parts));
     }
 
     private function plainText(string $value): string
