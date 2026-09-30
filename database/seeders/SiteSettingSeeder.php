@@ -10,15 +10,15 @@ class SiteSettingSeeder extends Seeder
     public function run(): void
     {
         $history = <<<'TEXT'
-        SMK Negeri 1 Bantul memiliki perjalanan sejarah panjang yang penuh dengan perubahan dan pembaruan, dan berkembang menjadi SMK Negeri 1 Bantul yang dikenal saat ini. Sekolah ini dibangun oleh tokoh penting dari daerah maupun pusat yang memiliki visi kuat terkait dengan pendidikan untuk mencetak bibit unggul talenta untuk SMKN Negeri VI Bantul.
+        SMK Negeri 1 Bantul memiliki perjalanan sejarah panjang yang penuh dengan komitmen terhadap pendidikan berkualitas. Berdiri pada tahun 1968 berdasarkan Surat Keputusan Menteri Pendidikan dan Kebudayaan Nomor: 213/UKK/III/1968 tertanggal 9 Juni 1968, sekolah ini awalnya bernama SMEA Negeri VI Bantul. Seiring waktu, nama sekolah berubah menjadi SMEA Negeri 1 Bantul dan kini dikenal sebagai SMK Negeri 1 Bantul.
 
-        Sejak awal, SMK Negeri 1 Bantul telah hadir sebagai lembaga pendidikan yang berfokus pada pengembangan kompetensi dan keterampilan teknis yang siap menjembatani lulusannya menuju dunia kerja. Pendidikan di sini tidak hanya berfokus pada aspek teori, tetapi juga pada praktik dan budaya pendidikan.
+        Sejak awal, SMK Negeri 1 Bantul telah hadir sebagai lembaga pendidikan yang berfokus pada pengembangan keterampilan vokasional yang siap menghadapi tuntutan dunia kerja. Dalam perkembangannya, sekolah ini terus menunjukkan komitmen tinggi terhadap peningkatan mutu dan kualitas pendidikan.
 
-        Pada tahun 1960-an dan pada era berikutnya, SMK Negeri 1 Bantul memperkenalkan Sistem Manajemen Mutu melalui sertifikasi ISO 9001. Sertifikat ini mendokumentasikan komitmen lembaga terhadap standar mutu dan tata kelola. Program Teaching Factory (TEFA) yang terlibat menjadikan pendidikan di sekolah ini lebih praktis, sebab pembelajarannya tidak berhenti pada konsep semata.
+        Sebagai bukti dari komitmen ini, SMK Negeri 1 Bantul menerapkan Sistem Manajemen Mutu (SMM) ISO 9001:2008 sejak tanggal 21 Oktober 2010 hingga 29 Mei 2013. Upaya ini dilanjutkan dengan resertifikasi di awal tahun 2013 untuk memastikan bahwa standar kualitas yang diterapkan tetap konsisten dan diakui. Sertifikasi tersebut diberikan oleh lembaga sertifikasi internasional TÜV Rheinland Cert GmbH dengan nomor sertifikat 01.100.065 164. Penerapan standar internasional ini menunjukkan bahwa mutu pendidikan di SMK Negeri 1 Bantul telah diakui secara global, memberikan kepercayaan lebih kepada para siswa, orang tua, dan mitra industri.
 
-        Dengan pengalaman lebih dari satu dekade, SMK Negeri 1 Bantul telah berkembang dalam pembangunan fasilitas, kurikulum terdokumentasi, serta kemitraan dengan berbagai sektor industri. Pendekatan pembelajaran yang aplikatif dan adaptif terhadap kebutuhan industri telah menjadi kekuatan sekolah ini.
+        Dengan pengalaman lebih dari lima dekade, SMK Negeri 1 Bantul terus berkembang dan berinovasi. Melalui peningkatan fasilitas, transformasi kurikulum, serta kemitraan dengan berbagai sektor industri, sekolah ini senantiasa berupaya mencetak lulusan yang tidak hanya terampil secara teknis, tetapi juga berkarakter dan siap bersaing di era digital dan industri 4.0.
 
-        Sekolah ini juga aktif dalam berbagai kompetisi tingkat sekolah, provinsi, hingga nasional. Dari LKS (Lomba Kompetensi Siswa) hingga OSN (Olimpiade Sains Nasional), semangat untuk terus memberikan kontribusi nyata dan menjadikan generasi yang telah menghasilkan berbagai prestasi global.
+        SMK Negeri 1 Bantul bangga menjadi bagian penting dalam sejarah pendidikan vokasional di Kabupaten Bantul, dan dengan semangat "Cerdas, Istimewa, dan Berkarakter," sekolah ini berkomitmen untuk terus memberikan kontribusi nyata dalam menciptakan generasi yang siap menghadapi tantangan global.
         TEXT;
 
         $mission = <<<'TEXT'
@@ -39,12 +39,14 @@ class SiteSettingSeeder extends Seeder
             ['group' => 'school', 'key' => 'school.short_name', 'value' => 'SMKN 1 Bantul', 'type' => 'text'],
             ['group' => 'school', 'key' => 'school.logo', 'value' => 'images/logo.png', 'type' => 'text'],
             ['group' => 'school', 'key' => 'school.hero_image', 'value' => 'images/outsideOfSchool.png', 'type' => 'text'],
-            ['group' => 'school', 'key' => 'school.tagline', 'value' => 'Membangun wajah sekolah yang dulu kusam jadi terang dan transparan dengan teknologi dan estetika.', 'type' => 'text'],
+            ['group' => 'school', 'key' => 'school.tagline', 'value' => 'Pusat pendidikan vokasi yang mengembangkan kompetensi, karakter, dan inovasi untuk masa depan yang berdaya saing.', 'type' => 'text'],
             ['group' => 'school', 'key' => 'school.tagline_short', 'value' => 'Mencetak Generasi Unggul dan Kompeten', 'type' => 'text'],
 
             // Contact
             ['group' => 'contact', 'key' => 'contact.address', 'value' => 'Jl. Parangtritis No.KM.11, Dukuh, Sabdodadi, Kec. Bantul, Kab. Bantul, Daerah Istimewa Yogyakarta 55715', 'type' => 'text'],
             ['group' => 'contact', 'key' => 'contact.phone', 'value' => '+62 274 367 156', 'type' => 'text'],
+            ['group' => 'contact', 'key' => 'contact.hotline', 'value' => '+62 851-2260-3820', 'type' => 'text'],
+            ['group' => 'contact', 'key' => 'contact.whatsapp', 'value' => 'https://wa.me/6285122603820', 'type' => 'text'],
             ['group' => 'contact', 'key' => 'contact.email', 'value' => 'info@smkn1bantul.sch.id', 'type' => 'text'],
             ['group' => 'contact', 'key' => 'contact.maps_url', 'value' => 'https://maps.google.com?q=SMK+Negeri+1+Bantul', 'type' => 'text'],
             ['group' => 'contact', 'key' => 'contact.map_embed_url', 'value' => 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7904.107401112937!2d110.355893!3d-7.889451!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7b00889ad8f84d%3A0x2e0009ca7815eaf0!2sSMK%20Negeri%201%20Bantul!5e0!3m2!1sen!2sus!4v1760634774433!5m2!1sen!2sus', 'type' => 'text'],
@@ -52,6 +54,7 @@ class SiteSettingSeeder extends Seeder
             // Social
             ['group' => 'social', 'key' => 'social.youtube', 'value' => 'https://www.youtube.com/@officialsmkn1bantul', 'type' => 'text'],
             ['group' => 'social', 'key' => 'social.instagram', 'value' => 'https://www.instagram.com/smkn1bantul?igsh=bnV1ZG9uMWR3ZGRm', 'type' => 'text'],
+            ['group' => 'social', 'key' => 'social.x', 'value' => 'https://x.com/skansaba_id', 'type' => 'text'],
             ['group' => 'social', 'key' => 'social.telegram', 'value' => 'https://t.me/PPDBSMK1BANTUL', 'type' => 'text'],
             ['group' => 'social', 'key' => 'social.tiktok', 'value' => 'http://tiktok.com/@skansaba.id?is_from_webapp=1&sender_device=pc', 'type' => 'text'],
 
@@ -70,7 +73,7 @@ class SiteSettingSeeder extends Seeder
             ['group' => 'history', 'key' => 'history.body', 'value' => trim($history), 'type' => 'textarea'],
 
             // Vision & mission
-            ['group' => 'vision', 'key' => 'vision.points', 'value' => 'Terwujudnya sekolah berkualitas, berkarakter dan berwawasan lingkungan', 'type' => 'text'],
+            ['group' => 'vision', 'key' => 'vision.points', 'value' => 'Terwujudnya peserta didik dan lulusan yang berkualitas, berkarakter, berwawasan lingkungan, dan mampu berkolaborasi', 'type' => 'text'],
             ['group' => 'mission', 'key' => 'mission.points', 'value' => trim($mission), 'type' => 'textarea'],
 
             // Organization

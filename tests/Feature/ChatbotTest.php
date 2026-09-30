@@ -267,16 +267,18 @@ class ChatbotTest extends TestCase
     {
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('Skansaba Bot')
+            ->assertSee('Skansaba AI')
+            ->assertSee('Tanya Skansaba AI')
             ->assertSee('chatbot({', false);
     }
 
-    public function test_chatbot_widget_renders_suggestion_chips(): void
+    public function test_chatbot_widget_renders_suggestion_chips_with_labels(): void
     {
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('Pertanyaan populer')
-            ->assertSee('suggestion-chip', false);
+            ->assertSee('suggestion-chip', false)
+            ->assertSee('iconPaths', false);
     }
 
     public function test_chatbot_suggestions_are_tailored_to_the_current_page(): void
@@ -284,6 +286,7 @@ class ChatbotTest extends TestCase
         $this->get(route('ppdb'))
             ->assertOk()
             ->assertSee('Apa syarat mendaftar PPDB?')
+            ->assertSee('Informasi PPDB')
             ->assertDontSee('Apa saja fasilitas di sekolah ini?');
     }
 
@@ -355,7 +358,7 @@ class ChatbotTest extends TestCase
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertDontSee('Skansaba Bot');
+            ->assertDontSee('Skansaba AI');
     }
 
     public function test_home_page_no_longer_loads_sienna_accessibility_script(): void

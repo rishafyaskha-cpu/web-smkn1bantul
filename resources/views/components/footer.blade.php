@@ -30,6 +30,17 @@
                         </p>
                     @endif
 
+                    @if (Site::hotline())
+                        <p>
+                            <a href="tel:{{ preg_replace('/[^0-9+]/', '', Site::hotline()) }}" class="inline-flex items-center gap-2 transition-colors hover:text-white">
+                                <svg class="h-4 w-4 shrink-0 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 5a2 2 0 0 1 2-2h2.2a1 1 0 0 1 .95.68l1 3a1 1 0 0 1-.27 1.06L7.6 9.2a12.5 12.5 0 0 0 6.2 6.2l1.46-1.28a1 1 0 0 1 1.06-.27l3 1A1 1 0 0 1 20 15.8V18a2 2 0 0 1-2 2h-.5C9.4 20 3 13.6 3 5.5V5Z" />
+                                </svg>
+                                Hotline: {{ Site::hotline() }}
+                            </a>
+                        </p>
+                    @endif
+
                     @if (Site::get('contact.email'))
                         <p>
                             <a href="mailto:{{ Site::get('contact.email') }}" class="inline-flex items-center gap-2 transition-colors hover:text-white">
@@ -68,6 +79,7 @@
                 <ul class="mt-4 space-y-2.5 text-sm">
                     <li><a href="{{ route('berita.index') }}" class="text-slate-400 transition-colors hover:text-white">Berita &amp; Informasi</a></li>
                     <li><a href="{{ route('prestasi') }}" class="text-slate-400 transition-colors hover:text-white">Prestasi</a></li>
+                    <li><a href="{{ route('download') }}" class="text-slate-400 transition-colors hover:text-white">Download</a></li>
                     <li><a href="{{ route('ekstrakurikuler') }}" class="text-slate-400 transition-colors hover:text-white">Ekstrakurikuler</a></li>
                     <li><a href="{{ route('organisasi-siswa') }}" class="text-slate-400 transition-colors hover:text-white">Organisasi Siswa</a></li>
                     <li><a href="{{ route('ppdb') }}" class="text-slate-400 transition-colors hover:text-white">PPDB</a></li>

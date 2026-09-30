@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Models\Achievement;
 use App\Models\Article;
+use App\Models\Download;
 use App\Models\Ekstrakurikuler;
 use App\Models\OrganisasiSiswa;
 use App\Models\PpdbProgram;
@@ -44,6 +45,7 @@ class SchoolKnowledgeBase
             $this->achievements(),
             $this->ppdb(),
             $this->news(),
+            $this->downloads(),
             $this->siteNavigation(),
         ]);
 
@@ -92,6 +94,7 @@ class SchoolKnowledgeBase
         $socials = collect([
             'YouTube' => Site::get('social.youtube'),
             'Instagram' => Site::get('social.instagram'),
+            'X' => Site::get('social.x'),
             'Telegram' => Site::get('social.telegram'),
             'TikTok' => Site::get('social.tiktok'),
         ])->filter();
@@ -305,7 +308,7 @@ class SchoolKnowledgeBase
 
     private function news(): string
     {
-        $articles = Article::published()->latest()->limit(8)->get();
+        $articles = Article::published()->latestPublished()->limit(8)->get();
 
         if ($articles->isEmpty()) {
             return '';
@@ -326,6 +329,29 @@ class SchoolKnowledgeBase
         return "== BERITA TERBARU ==\n".implode("\n", $lines);
     }
 
+    private function downloads(): string
+    {
+        $items = Download::published()->ordered()->get();
+
+        if ($items->isEmpty()) {
+            return '';
+        }
+
+        $lines = $items->map(function (Download $item): string {
+            $line = "- {$item->title}";
+
+            if ($item->uploaded_at) {
+                $line .= ' ('.$item->uploaded_at->translatedFormat('d F Y').')';
+            }
+
+            return $line.' (unduh: '.$item->file_url.')';
+        })->all();
+
+        $lines[] = 'HALAMAN DOWNLOAD: '.route('download');
+
+        return "== BERKAS YANG DAPAT DIUNDUH ==\n".implode("\n", $lines);
+    }
+
     private function siteNavigation(): string
     {
         $lines = [
@@ -337,6 +363,7 @@ class SchoolKnowledgeBase
             '- Program Keahlian: '.route('program-keahlian.index'),
             '- Berita & Informasi: '.route('berita.index'),
             '- Prestasi Siswa: '.route('prestasi'),
+            '- Download: '.route('download'),
             '- Ekstrakurikuler: '.route('ekstrakurikuler'),
             '- Organisasi Siswa: '.route('organisasi-siswa'),
             '- Teaching Factory: '.route('teaching-factory'),

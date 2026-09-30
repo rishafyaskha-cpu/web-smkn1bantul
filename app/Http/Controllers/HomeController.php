@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        $articles = Article::published()->latest()->limit(4)->get();
+        $articles = Article::published()->latestPublished()->limit(4)->get();
         $achievements = Achievement::published()->ordered()->limit(6)->get();
         $programs = ProgramKeahlian::published()->ordered()->get();
         $statistics = SiteStatistic::ordered()->get();

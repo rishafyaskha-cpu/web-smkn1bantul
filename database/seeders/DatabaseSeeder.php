@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             ProgramKeahlianSeeder::class,
             SaranaPrasaranaSeeder::class,
             SiteContentSeeder::class,
+            ArticleSeeder::class,
+            DownloadSeeder::class,
         ]);
 
         User::factory()->create([

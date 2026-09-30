@@ -1,7 +1,7 @@
 @props(['title' => null, 'articles' => null])
 
 @php
-    $articles = $articles ?? \App\Models\Article::published()->latest()->limit(4)->get();
+    $articles = $articles ?? \App\Models\Article::published()->latestPublished()->limit(4)->get();
 @endphp
 
 <section class="border-y border-slate-200/80 bg-surface">

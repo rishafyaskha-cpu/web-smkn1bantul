@@ -18,6 +18,7 @@
             'children' => [
                 ['label' => 'Berita & Informasi', 'route' => 'berita.index'],
                 ['label' => 'Prestasi', 'route' => 'prestasi'],
+                ['label' => 'Download', 'route' => 'download'],
             ],
         ],
         [

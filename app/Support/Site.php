@@ -70,8 +70,19 @@ class Site
         return array_values(array_filter([
             ['label' => 'YouTube', 'url' => static::get('social.youtube'), 'icon' => 'images/YouTube.png'],
             ['label' => 'Instagram', 'url' => static::get('social.instagram'), 'icon' => 'images/instagram.png'],
+            ['label' => 'X', 'url' => static::get('social.x'), 'icon' => 'images/x-twitter.png'],
             ['label' => 'Telegram', 'url' => static::get('social.telegram'), 'icon' => 'images/telegramppdb.png'],
             ['label' => 'TikTok', 'url' => static::get('social.tiktok'), 'icon' => 'images/Tiktok.png'],
         ], fn ($item) => filled($item['url'])));
+    }
+
+    public static function whatsappUrl(): ?string
+    {
+        return static::get('contact.whatsapp');
+    }
+
+    public static function hotline(): ?string
+    {
+        return static::get('contact.hotline');
     }
 }

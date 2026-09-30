@@ -12,7 +12,7 @@ class BeritaController extends Controller
     {
         $articles = Article::published()
             ->search($request->string('q')->toString())
-            ->latest()
+            ->latestPublished()
             ->paginate(9)
             ->withQueryString();
 
@@ -28,7 +28,7 @@ class BeritaController extends Controller
 
         $related = Article::published()
             ->whereKeyNot($berita->id)
-            ->latest()
+            ->latestPublished()
             ->limit(3)
             ->get();
 

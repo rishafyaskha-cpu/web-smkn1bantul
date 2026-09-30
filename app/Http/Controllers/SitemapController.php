@@ -20,6 +20,7 @@ class SitemapController extends Controller
             ['loc' => route('program-keahlian.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => route('berita.index'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => route('prestasi'), 'changefreq' => 'weekly', 'priority' => '0.8'],
+            ['loc' => route('download'), 'changefreq' => 'weekly', 'priority' => '0.7'],
             ['loc' => route('ekstrakurikuler'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => route('organisasi-siswa'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => route('teaching-factory'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -34,7 +35,7 @@ class SitemapController extends Controller
             'loc' => route('sarana-prasarana.show', $s),
         ]));
 
-        Article::published()->latest()->get()->each(fn ($a) => $urls->push([
+        Article::published()->latestPublished()->get()->each(fn ($a) => $urls->push([
             'loc' => route('berita.show', $a),
             'lastmod' => $a->updated_at->toAtomString(),
             'changefreq' => 'monthly',

@@ -19,9 +19,13 @@ class ProgramKeahlianSeeder extends Seeder
             'category' => 'Bisnis',
             'summary' => 'Operasional perbankan syariah, layanan nasabah, administrasi transaksi, dan pengelolaan keuangan.',
         ],
-        'pemasaran' => [
+        'bisnis-ritel' => [
             'category' => 'Bisnis',
             'summary' => 'Pengelolaan toko, pelayanan pelanggan, strategi penjualan, dan penataan produk.',
+        ],
+        'bisnis-digital' => [
+            'category' => 'Bisnis',
+            'summary' => 'Digital marketing, e-commerce, pengelolaan konten, dan strategi bisnis online.',
         ],
         'manajemen-perkantoran-dan-layanan-bisnis' => [
             'category' => 'Manajemen',
@@ -47,6 +51,8 @@ class ProgramKeahlianSeeder extends Seeder
 
         $items = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
 
+        $slugs = [];
+
         foreach ($items as $index => $item) {
             $meta = $this->meta[$item['id']] ?? ['category' => 'Lainnya', 'summary' => null];
 
@@ -62,6 +68,10 @@ class ProgramKeahlianSeeder extends Seeder
                     'sort_order' => $index + 1,
                 ]
             );
+
+            $slugs[] = $item['id'];
         }
+
+        ProgramKeahlian::whereNotIn('slug', $slugs)->delete();
     }
 }

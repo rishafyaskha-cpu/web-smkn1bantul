@@ -77,11 +77,11 @@ Alpine.data('chatbot', (config = {}) => ({
     open: false,
     loading: false,
     hovered: false,
-    hasInteracted: false,
     input: '',
     error: null,
     messages: [],
     suggestions: config.suggestions ?? [],
+    iconPaths: config.icons ?? {},
     endpoint: config.endpoint ?? '',
     greeting: config.greeting ?? 'Halo! Ada yang bisa saya bantu?',
     unavailableMessage: config.unavailableMessage ?? '',
@@ -89,10 +89,6 @@ Alpine.data('chatbot', (config = {}) => ({
 
     init() {
         this.messages = [this.createMessage('assistant', this.greeting)];
-
-        const seen = window.sessionStorage?.getItem('chatbot.interacted');
-
-        this.hasInteracted = seen === 'true';
     },
 
     get showSuggestions() {
@@ -121,8 +117,6 @@ Alpine.data('chatbot', (config = {}) => ({
         this.open = ! this.open;
 
         if (this.open) {
-            this.hasInteracted = true;
-            window.sessionStorage?.setItem('chatbot.interacted', 'true');
             this.$nextTick(() => this.$refs.chatInput?.focus());
         }
     },
@@ -160,8 +154,6 @@ Alpine.data('chatbot', (config = {}) => ({
 
         this.error = null;
         this.input = '';
-        this.hasInteracted = true;
-        window.sessionStorage?.setItem('chatbot.interacted', 'true');
 
         if (this.$refs.chatInput) {
             this.$refs.chatInput.style.height = 'auto';
@@ -206,7 +198,9 @@ Alpine.data('chatbot', (config = {}) => ({
             const container = this.$refs.chatLog;
 
             if (container) {
-                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                container.scrollTo({ top: container.scrollHeight, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
             }
         });
     },

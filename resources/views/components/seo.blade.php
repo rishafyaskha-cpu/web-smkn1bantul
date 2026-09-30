@@ -119,6 +119,7 @@
         'sameAs' => array_values(array_filter([
             Site::get('social.youtube'),
             Site::get('social.instagram'),
+            Site::get('social.x'),
             Site::get('social.telegram'),
             Site::get('social.tiktok'),
         ])),

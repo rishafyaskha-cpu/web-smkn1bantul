@@ -1,17 +1,18 @@
 {
     "ekstrakurikuler": [
-        { "name": "Paduan Suara", "image": "images/ekstra1.jpeg" },
-        { "name": "KIR", "image": "images/ekstra2.jpeg" },
-        { "name": "Silat", "image": "images/ekstra3.jpeg" },
-        { "name": "Basket", "image": "images/ekstra4.jpeg" },
-        { "name": "Robotik", "image": "images/ekstra5.jpeg" },
-        { "name": "Pramuka", "image": "images/ekstra6.jpeg" },
+        { "name": "Paduan Suara", "image": null },
+        { "name": "KIR", "image": null },
+        { "name": "Silat", "image": null },
+        { "name": "Basket", "image": "images/ekstra9.jpeg" },
+        { "name": "Robotik", "image": null },
+        { "name": "Karawitan", "image": "images/ekstra-karawitan.jpeg" },
         { "name": "PMR", "image": "images/ekstra7.jpeg" },
-        { "name": "Futsal", "image": "images/ekstra8.jpeg" },
-        { "name": "Volly", "image": "images/ekstra9.jpeg" },
-        { "name": "Qiroah", "image": "images/ekstra10.jpeg" },
-        { "name": "Drumband", "image": "images/ekstra11.jpeg" },
-        { "name": "Menjahit", "image": "images/ekstra12.jpeg" },
+        { "name": "Hadroh", "image": "images/ekstra-hadroh.jpeg" },
+        { "name": "Voli", "image": "images/ekstra3.jpeg" },
+        { "name": "Qiro'ah", "image": "images/ekstra11.jpeg" },
+        { "name": "Futsal", "image": "images/ekstra10.jpeg" },
+        { "name": "Drumband", "image": "images/ekstra5.jpeg" },
+        { "name": "Menjahit", "image": null },
         { "name": "IT Enterpreneur", "image": null },
         { "name": "Tari", "image": null },
         { "name": "Teater", "image": null },
@@ -61,7 +62,7 @@
             "title": "Pemasaran",
             "partner": "Adina Spunbond",
             "logo": "images/ABdina.jpg",
-            "program": "pemasaran"
+            "program": "bisnis-ritel"
         }
     ],
     "site_statistic": [
@@ -94,16 +95,28 @@
     ],
     "ppdb_program": [
         {
-            "category": "Bisnis",
-            "title": "Akuntansi & Lembaga Keuangan",
-            "description": "Praktik perbankan pada Mini Bank Sekolah, Komputer Akuntansi MYOB/Accurate, perpajakan, dan Sertifikasi BNSP.",
-            "program": "akutansi-dan-lembaga-keuangan"
-        },
-        {
             "category": "TIK",
             "title": "Rekayasa Perangkat Lunak",
             "description": "Pengembangan web & aplikasi mobile, UI/UX design, database cloud, didukung Lab Komputer modern & kelas industri.",
             "program": "rekayasa-perangkat-lunak"
+        },
+        {
+            "category": "TIK",
+            "title": "Teknik Jaringan Komputer Jaringan",
+            "description": "Perakitan komputer, jaringan dasar, konfigurasi perangkat, sistem dan keamanan jaringan, didukung Lab Komputer & praktik jaringan.",
+            "program": "teknik-komputer-dan-jaringan"
+        },
+        {
+            "category": "Seni & Kreatif",
+            "title": "Desain Komunikasi Visual",
+            "description": "Karya animasi 2D/3D, ilustrasi digital, branding korporat, sinematografi, dan studio broadcaster berstandar profesional.",
+            "program": "desain-komunikasi-visual"
+        },
+        {
+            "category": "Bisnis",
+            "title": "Akuntansi & Lembaga Keuangan",
+            "description": "Praktik perbankan pada Mini Bank Sekolah, Komputer Akuntansi MYOB/Accurate, perpajakan, dan Sertifikasi BNSP.",
+            "program": "akutansi-dan-lembaga-keuangan"
         },
         {
             "category": "Bisnis",
@@ -121,25 +134,13 @@
             "category": "Bisnis",
             "title": "Bisnis Ritel",
             "description": "Pengelolaan toko, pelayanan pelanggan, strategi penjualan, penataan produk, didukung praktik bisnis & lingkungan kerja industri.",
-            "program": "pemasaran"
-        },
-        {
-            "category": "Seni & Kreatif",
-            "title": "Desain Komunikasi Visual",
-            "description": "Karya animasi 2D/3D, ilustrasi digital, branding korporat, sinematografi, dan studio broadcaster berstandar profesional.",
-            "program": "desain-komunikasi-visual"
-        },
-        {
-            "category": "TIK",
-            "title": "Teknik Jaringan Komputer Jaringan",
-            "description": "Perakitan komputer, jaringan dasar, konfigurasi perangkat, sistem dan keamanan jaringan, didukung Lab Komputer & praktik jaringan.",
-            "program": "teknik-komputer-dan-jaringan"
+            "program": "bisnis-ritel"
         },
         {
             "category": "Bisnis",
             "title": "Bisnis Digital",
             "description": "Digital marketing, e-commerce, pengelolaan konten, strategi bisnis online, didukung praktik teknologi & platform digital.",
-            "program": "pemasaran"
+            "program": "bisnis-digital"
         }
     ],
     "achievement": [
@@ -196,18 +197,18 @@
             { "image": "images/image3.png", "alt": "Ekstrakurikuler SMK Negeri 1 Bantul" }
         ],
         "ekstrakurikuler": [
-            { "image": "images/ekstra1.jpeg", "alt": "Ekstrakurikuler Paduan Suara" },
-            { "image": "images/ekstra2.jpeg", "alt": "Ekstrakurikuler KIR" },
-            { "image": "images/ekstra3.jpeg", "alt": "Ekstrakurikuler Silat" },
-            { "image": "images/ekstra4.jpeg", "alt": "Ekstrakurikuler Basket" },
-            { "image": "images/ekstra5.jpeg", "alt": "Ekstrakurikuler Robotik" },
-            { "image": "images/ekstra6.jpeg", "alt": "Ekstrakurikuler Pramuka" },
-            { "image": "images/ekstra7.jpeg", "alt": "Ekstrakurikuler PMR" },
-            { "image": "images/ekstra8.jpeg", "alt": "Ekstrakurikuler Futsal" },
-            { "image": "images/ekstra9.jpeg", "alt": "Ekstrakurikuler Volly" },
-            { "image": "images/ekstra10.jpeg", "alt": "Ekstrakurikuler Qiroah" },
-            { "image": "images/ekstra11.jpeg", "alt": "Ekstrakurikuler Drumband" },
-            { "image": "images/ekstra12.jpeg", "alt": "Ekstrakurikuler Menjahit" }
+            { "image": "images/ekstra1.jpeg", "alt": "Dokumentasi kegiatan ekstrakurikuler" },
+            { "image": "images/ekstra2.jpeg", "alt": "Dokumentasi ekstrakurikuler Hadroh" },
+            { "image": "images/ekstra3.jpeg", "alt": "Dokumentasi ekstrakurikuler Voli" },
+            { "image": "images/ekstra4.jpeg", "alt": "Dokumentasi kegiatan ekstrakurikuler" },
+            { "image": "images/ekstra5.jpeg", "alt": "Dokumentasi ekstrakurikuler Drumband" },
+            { "image": "images/ekstra6.jpeg", "alt": "Dokumentasi kegiatan ekstrakurikuler" },
+            { "image": "images/ekstra7.jpeg", "alt": "Dokumentasi ekstrakurikuler PMR" },
+            { "image": "images/ekstra8.jpeg", "alt": "Dokumentasi kegiatan ekstrakurikuler" },
+            { "image": "images/ekstra9.jpeg", "alt": "Dokumentasi ekstrakurikuler Basket" },
+            { "image": "images/ekstra10.jpeg", "alt": "Dokumentasi ekstrakurikuler Futsal" },
+            { "image": "images/ekstra11.jpeg", "alt": "Dokumentasi ekstrakurikuler Qiro'ah" },
+            { "image": "images/ekstra12.jpeg", "alt": "Dokumentasi kegiatan ekstrakurikuler" }
         ],
         "organisasi": [
             { "image": "images/organisasi1.jpeg", "alt": "Majuri Dwipangga" },
@@ -219,11 +220,30 @@
             { "image": "images/organisasi7.jpeg", "alt": "Organisasi Siswa PMR" }
         ],
         "partner": [
-            { "image": "images/JhicLogo/JHICLogo.png", "alt": "JHIC" },
-            { "image": "images/JhicLogo/JagoanHostingLogo.png", "alt": "JagoanHosting" },
-            { "image": "images/JhicLogo/KomdigiLogo.png", "alt": "Komdigi" },
-            { "image": "images/JhicLogo/MaspionITLogo.png", "alt": "MaspionIT" },
-            { "image": "images/JhicLogo/GarudaSparkLogo.png", "alt": "GarudaSpark" }
+            { "image": "images/mitra/akademikom.png", "alt": "Akademikom" },
+            { "image": "images/mitra/ambarukmo.png", "alt": "Universitas Ambarrukmo" },
+            { "image": "images/mitra/ameya.png", "alt": "Ameya" },
+            { "image": "images/mitra/amikom.png", "alt": "Universitas Amikom Yogyakarta" },
+            { "image": "images/mitra/ampta.jpg", "alt": "AMPTA" },
+            { "image": "images/mitra/duta.png", "alt": "Duta" },
+            { "image": "images/mitra/gmedia.jpg", "alt": "Gmedia" },
+            { "image": "images/mitra/janabadra.png", "alt": "Universitas Janabadra" },
+            { "image": "images/mitra/mercubuana.png", "alt": "Universitas Mercu Buana Yogyakarta" },
+            { "image": "images/mitra/mirota.png", "alt": "Mirota" },
+            { "image": "images/mitra/msd.png", "alt": "MSD" },
+            { "image": "images/mitra/profidana.png", "alt": "Profidana" },
+            { "image": "images/mitra/pt_time_excelindo_logo.jpeg", "alt": "PT Time Excelindo" },
+            { "image": "images/mitra/sejong.jpg", "alt": "Sejong" },
+            { "image": "images/mitra/semar.jpg", "alt": "Semar" },
+            { "image": "images/mitra/seven.png", "alt": "Seven Inc" },
+            { "image": "images/mitra/stikom.jpeg", "alt": "STIKOM" },
+            { "image": "images/mitra/uad.png", "alt": "Universitas Ahmad Dahlan" },
+            { "image": "images/mitra/unjani.png", "alt": "Universitas Jenderal Achmad Yani" },
+            { "image": "images/mitra/ust.png", "alt": "Universitas Sarjanawiyata Tamansiswa" },
+            { "image": "images/mitra/ut.png", "alt": "Universitas Terbuka" },
+            { "image": "images/mitra/utdi.png", "alt": "Universitas Teknologi Digital Indonesia" },
+            { "image": "images/mitra/uty.png", "alt": "Universitas Teknologi Yogyakarta" },
+            { "image": "images/mitra/maspion.jpeg", "alt": "Maspion IT" }
         ]
     }
 }

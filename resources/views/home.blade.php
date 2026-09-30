@@ -19,7 +19,7 @@
         <div class="container-page relative">
             <div class="grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
                 <div class="max-w-xl" data-reveal="right">
-                    <p class="eyebrow">Sekolah Menengah Kejuruan Negeri</p>
+                    <p class="eyebrow">Halo sobat skansaba!</p>
 
                     <h1 class="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem]">
                         Selamat Datang di

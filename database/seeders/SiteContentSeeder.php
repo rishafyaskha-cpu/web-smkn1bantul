@@ -36,6 +36,8 @@ class SiteContentSeeder extends Seeder
      */
     private function seedEkstrakurikuler(array $items): void
     {
+        $names = [];
+
         foreach ($items as $index => $item) {
             Ekstrakurikuler::updateOrCreate(
                 ['name' => $item['name']],
@@ -45,7 +47,11 @@ class SiteContentSeeder extends Seeder
                     'sort_order' => $index + 1,
                 ]
             );
+
+            $names[] = $item['name'];
         }
+
+        Ekstrakurikuler::whereNotIn('name', $names)->delete();
     }
 
     /**
@@ -167,6 +173,8 @@ class SiteContentSeeder extends Seeder
     private function seedGallery(array $groups): void
     {
         foreach ($groups as $group => $images) {
+            $images = array_values($images);
+
             foreach ($images as $index => $image) {
                 Gallery::updateOrCreate(
                     ['image' => ltrim($image['image'], '/'), 'group' => $group],
@@ -177,6 +185,10 @@ class SiteContentSeeder extends Seeder
                     ]
                 );
             }
+
+            Gallery::where('group', $group)
+                ->whereNotIn('image', array_map(fn (array $image): string => ltrim($image['image'], '/'), $images))
+                ->delete();
         }
     }
 }

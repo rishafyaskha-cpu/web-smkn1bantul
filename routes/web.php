@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PpdbController;
@@ -33,6 +34,7 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 
 Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi');
+Route::get('/download', [DownloadController::class, 'index'])->name('download');
 
 Route::get('/ekstrakurikuler', [GalleryPageController::class, 'ekstrakurikuler'])->name('ekstrakurikuler');
 Route::get('/organisasi-siswa', [GalleryPageController::class, 'organisasiSiswa'])->name('organisasi-siswa');

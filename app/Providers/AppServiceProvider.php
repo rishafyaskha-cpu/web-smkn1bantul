@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Achievement;
 use App\Models\Article;
+use App\Models\Download;
 use App\Models\Ekstrakurikuler;
 use App\Models\OrganisasiSiswa;
 use App\Models\PpdbProgram;
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         return [
             Achievement::class,
             Article::class,
+            Download::class,
             Ekstrakurikuler::class,
             OrganisasiSiswa::class,
             PpdbProgram::class,
